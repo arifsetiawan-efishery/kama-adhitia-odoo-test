@@ -1,0 +1,59 @@
+version: '3.9'
+services:
+  web:
+    container_name: odoo_cont
+    image: kams/odoo-image
+    build: .
+    environment:
+      - PASSWORD_FILE=/run/secrets/postgresql_password
+      - ODOO_SERVER=odoo-bin
+      - WDB_NO_BROWSER_AUTO_OPEN=False
+      - WDB_SOCKET_SERVER=wdb
+      - WDB_WEB_PORT=1984
+      - WDB_WEB_SERVER=localhost
+    ports:
+      - "8069:8069"
+    secrets:
+      - postgresql_password
+    volumes:
+      - ./odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons/custom:/mnt/extra-addons
+    networks:
+      - app-net
+
+  db:
+    container_name: postgres_cont
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD_FILE=/run/secrets/postgresql_password
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    secrets:
+      - postgresql_password
+    networks:
+      - app-net
+
+  wdb:
+    container_name: wdb_cont
+    image: yajo/wdb-server
+    ports:
+      - "1984:1984"
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    ipam:
+      driver: default
+
+volumes:
+  odoo-web-data: null
+  odoo-db-data: null
+
+secrets:
+  postgresql_password:
+    file: ./pw.txt
