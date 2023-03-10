@@ -16,9 +16,9 @@ services:
     secrets:
       - postgresql_password
     volumes:
-      - ./odoo-web-data:/var/lib/odoo
+      - odootest-web-data:/var/lib/odoo
       - ./config:/etc/odoo
-      - ./addons/custom:/mnt/extra-addons
+      - ./custom_addons:/mnt/extra-addons
     networks:
       - app-net
 
@@ -31,7 +31,7 @@ services:
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
+      - odootest-db-data:/var/lib/postgresql/data/pgdata
     secrets:
       - postgresql_password
     networks:
@@ -47,12 +47,11 @@ services:
 
 networks:
   app-net:
-    ipam:
-      driver: default
+    driver: bridge
 
 volumes:
-  odoo-web-data: null
-  odoo-db-data: null
+  odootest-web-data: null
+  odootest-db-data: null
 
 secrets:
   postgresql_password:
