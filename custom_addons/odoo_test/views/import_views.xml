@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+    
+		<menuitem name="Odoo Test" id="base_menu_odoo_test" sequence="1"/>
+		<menuitem name="Users" id="base_menu_odoo_test_user" parent="base_menu_odoo_test" sequence="1"/>
+
+     <!--Tree for Import Process tree view-->
+		<record id="import_process_tree_view" model="ir.ui.view">
+			<field name="name">kams.import.process.tree.view</field>
+			<field name="model">kams.import.process</field>
+			<field name="arch" type="xml">
+				<tree create="false" import="false">
+					<field name="filename"/>
+					<field name="cron_id"/>
+					<field name="user_id"/>
+					<field name="status"/>
+				</tree>
+			</field>
+		</record>
+
+		<!--Form for Import Process-->
+		<record id="import_process_form_view" model="ir.ui.view">
+			<field name="name">kams.import.process.form.view</field>
+			<field name="model">kams.import.process</field>
+			<field name="arch" type="xml">
+				<form create="false" import="false" edit="false">
+					<sheet>
+						<div class="oe_button_box" name="button_box">
+							<button
+								name="action_show_logs"
+								type="object"
+								class="oe_stat_button"
+								icon="fa-list-ul">
+								<field string="Logs" name="log_count" widget="statinfo" />
+							</button>
+						</div>
+						<group>
+							<group>
+								<field name="filename" invisible="1"/>
+								<field name="file" filename="filename"/>
+							</group>
+							<group>
+								<field name="user_id"/>
+								<field name="status"/>
+								<field name="cron_id"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!--Action-->
+		<record id="action_import_process" model="ir.actions.act_window">
+			<field name="name">Imported Process</field>
+			<field name="res_model">kams.import.process</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Import Process" action="action_import_process" id="menu_import_process" sequence="1" parent="base_menu_odoo_test_user"/>
+
+		 <!--Form for Import History tree view-->
+		<record id="import_history_tree_view" model="ir.ui.view">
+			<field name="name">kams.import.history.tree</field>
+			<field name="model">kams.import.history</field>
+			<field name="arch" type="xml">
+				<tree create="false" import="false">
+					<field name="file_name" invisible="1"/>
+					<field name="create_date" invisible="1"/>
+					<field name="start_date"/>
+					<field name="end_date"/>
+					<field name="import_file_name"/>
+					<field name="total_success_count"/>
+					<field name="total_failed_count"/>
+					<field name="file" readonly="1" filename="file_name"/>
+				</tree>
+			</field>
+		</record>
+
+		<!--Form for Import History-->
+		<record id="import_history_form_view" model="ir.ui.view">
+			<field name="name">kams.import.history.form</field>
+			<field name="model">kams.import.history</field>
+			<field name="arch" type="xml">
+				<form create="false" import="false" edit="false">
+					<sheet>
+						<group>
+							<field name="total_success_count"/>
+							<field name="total_failed_count"/>
+							<field name="create_date"/>
+							<field name="import_file_name"/>
+							<field name="start_date"/>
+							<field name="end_date"/>
+						</group>
+						<separator string="Import Failed Records File"/>
+						<group>
+							<field name="file_name" invisible="1"/>
+							<field name="file" readonly="1" filename="file_name"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<!--Action-->
+		<record id="action_import_history" model="ir.actions.act_window">
+			<field name="name">Import History</field>
+			<field name="res_model">kams.import.history</field>
+			<field name="view_mode">tree,form</field>
+			<field name="target">current</field>
+		</record>
+
+		<menuitem name="Import History" action="action_import_history" id="menu_import_history" sequence="2" parent="base_menu_odoo_test_user"/>
+
+		<record id="_logs_tree_view" model="ir.ui.view">
+			<field name="name">kams.import.process.detail.tree.view</field>
+			<field name="model">kams.import.process.detail</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="create_date" />
+					<field name="create_uid" />
+					<field name="name" />
+				</tree>
+			</field>
+		</record>
+	</data>
+</odoo>

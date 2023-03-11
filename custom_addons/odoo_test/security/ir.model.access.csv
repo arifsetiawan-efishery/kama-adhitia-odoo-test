@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_kams_import_process,kams.import.process,model_kams_import_process,base.group_user,1,1,1,1
+access_kams_import_process_detail,kams.import.process.detail,model_kams_import_process_detail,base.group_user,1,1,1,1
+access_kams_import_history,kams.import.history,model_kams_import_history,base.group_user,1,1,1,1
+access_kams_import_users,kams.import.users,model_kams_import_users,base.group_user,1,1,1,1
