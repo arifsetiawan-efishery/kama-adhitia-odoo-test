@@ -24,6 +24,7 @@ log-colorizer==2.0.0
 parsedatetime==2.4
 parso==0.8.3
 pycparser==2.21
+PyJWT==2.6.0
 pyOpenSSL==19.0.0
 pyRFC3339==1.1
 python-magic==0.4.27

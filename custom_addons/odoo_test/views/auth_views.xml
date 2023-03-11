@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+        <menuitem name="Auth" id="base_menu_odoo_test_auth" parent="odoo_test.base_menu_odoo_test" sequence="1"/>
+
+        <!--Tree for Auth Process tree view-->
+        <record id="auth_config_tree_view" model="ir.ui.view">
+            <field name="name">kams.auth.config.tree.view</field>
+            <field name="model">kams.auth.config</field>
+            <field name="arch" type="xml">
+                <tree editable="top" create="false" import="false"  delete="false">
+                    <field name="name"/>
+                    <field name="secret_key"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Action-->
+        <record id="action_auth_config" model="ir.actions.act_window">
+            <field name="name">Auth Configuration</field>
+            <field name="res_model">kams.auth.config</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem name="Configuration" action="action_auth_config" id="menu_auth_config" sequence="1" parent="odoo_test.base_menu_odoo_test_auth"/>
+
+        <record id="res_users_limit_device_tree" model="ir.ui.view">
+            <field name="name">res.users.tree.limit.device</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='login_date']" position="replace">
+                    <field name="logged_in" string="Logged In" readonly="1"/>
+                    <field name="login_date" string="Last Login" readonly="1"/>
+                </xpath>
+            </field>
+         </record>
+    </data>
+</odoo>

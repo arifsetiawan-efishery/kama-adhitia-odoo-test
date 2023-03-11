@@ -1,14 +1,31 @@
 <odoo>
     <data>
         <record id="remove_imported_cron" model="ir.cron">
-						<field name="name">Remove Imported cron</field>
-						<field name='interval_number' eval="10"/>
-						<field name='interval_type'>minutes</field>
-						<field name="doall" eval="False"/>
-						<field name="model_id" ref="base.model_res_users"/>
-						<field name="numbercall" eval="-1"/>
-						<field name="state">code</field>
-						<field name="code">model.remove_finish_import_crons()</field>
-				</record>
+				<field name="name">Remove Imported cron</field>
+				<field name='interval_number' eval="10"/>
+				<field name='interval_type'>minutes</field>
+				<field name="doall" eval="False"/>
+				<field name="model_id" ref="base.model_res_users"/>
+				<field name="numbercall" eval="-1"/>
+				<field name="state">code</field>
+				<field name="code">model.remove_finish_import_crons()</field>
+		</record>
+		<record id="configuration_auth_nih" model="kams.auth.config">
+				<field name="name">Config</field>
+				<field name='secret_key'>Test123</field>
+		</record>
+
+		<template id="login_clear_session" name="Clear User Sessions" inherit_id="web.login">
+			<xpath expr="//p[hasclass('alert-danger')]" position="after">
+				<t t-if="logout_all">
+					<div class="justify-content-between mt-2 d-flex small">
+						<a style="margin-left: auto; margin-right: auto;" t-att-href="'/clear_all_sessions?f_uid='+str(failed_uid)">
+							Logout all devices.
+						</a>
+					</div>
+				</t>
+			</xpath>
+		</template>
+		
     </data>
 </odoo>

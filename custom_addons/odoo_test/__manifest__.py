@@ -64,5 +64,6 @@
         'views/templates.xml',
         'views/import_views.xml',
         'wizard/import_views.xml',
+        'views/auth_views.xml',
     ],
 }
