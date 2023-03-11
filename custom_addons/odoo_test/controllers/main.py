@@ -19,6 +19,13 @@ import werkzeug.wrappers
 import werkzeug.wsgi
 
 import jwt
+import json
+
+from pyrate_limiter import (Duration, RequestRate,
+                            Limiter, BucketFullException)
+
+rate = RequestRate(1, Duration.SECOND * 10)
+limiter = Limiter(rate)
 
 
 def clear_session_history(u_sid, f_uid=False):
@@ -34,10 +41,24 @@ def clear_session_history(u_sid, f_uid=False):
     return False
 
 
+def token_validation(token):
+
+    secret_key = request.env['kams.auth.config'].sudo().search(
+        [], limit=1).secret_key
+
+    try:
+        data = jwt.decode(token, secret_key, algorithms=["HS256"])
+        role = data.get('role')
+        email = data.get('email', 'anonym')
+        return role, email
+    except:
+        raise ValueError('Token is invalid')
+
+
 class Session(main.Session):
     @http.route('/web/session/logout', type='http', auth="none")
     def logout(self, redirect='/web'):
-        user = request.env['res.users'].with_user(1).search(
+        user = request.env['res.users'].with_user(SUPERUSER_ID).search(
             [('id', '=', request.session.uid)])
         user._clear_session()
         request.session.logout(keep_db=True)
@@ -46,7 +67,8 @@ class Session(main.Session):
     @http.route('/clear_all_sessions', type='http', auth="none")
     def logout_all(self, redirect='/web/login', f_uid=False):
         if f_uid:
-            user = request.env['res.users'].with_user(1).browse(int(f_uid))
+            user = request.env['res.users'].with_user(
+                SUPERUSER_ID).browse(int(f_uid))
             if user:
                 session_cleared = clear_session_history(user.sid, f_uid)
                 if session_cleared:
@@ -144,8 +166,8 @@ class RootExt(odoo.http.Root):
                 httprequest.session.modified = True
             self.session_store.save(httprequest.session)
         if not explicit_session and hasattr(response, 'set_cookie'):
-            response.set_cookie('session_id', httprequest.session.sid,
-                                max_age=60 * 60, httponly=True)
+            response.set_cookie(
+                'session_id', httprequest.session.sid, httponly=True)
 
         return response
 
@@ -191,3 +213,58 @@ class OdooTest(Controller):
                     'status': 403,
                     'message': 'This user has logged in using another device',
                 }
+
+    @route(
+        "/api/fetch", type="http", auth="none", csrf=False, cors="*", methods=["GET"],
+    )
+    def fetch(self):
+        try:
+            PREFIX = 'Bearer '
+            headers = request.httprequest.headers
+            bearer = headers.get('Authorization')
+            if not bearer.startswith(PREFIX):
+                raise ValueError('Invalid token type')
+
+            role, email = token_validation(bearer[len(PREFIX):])
+
+            if role == 'user':
+                limiter.try_acquire(email)
+            data = []
+            get_data = request.env['kams.cache.data'].sudo().search([])
+            for line in get_data:
+                data.append(eval(line.name))
+            return Response(
+                status=200,
+                content_type='application/json; charset=utf-8',
+                response=json.dumps({
+                    'result':
+                    {
+                        'status': 200,
+                        'message': 'Success',
+                        "response": data
+                    }
+                }))
+
+        except BucketFullException:
+            return Response(
+                status=400,
+                content_type='application/json; charset=utf-8',
+                response=json.dumps({
+                    'result':
+                    {
+                        'status': 400,
+                        'message': "Too many request",
+                    }
+                }))
+
+        except Exception as e:
+            return Response(
+                status=403,
+                content_type='application/json; charset=utf-8',
+                response=json.dumps({
+                    'result':
+                    {
+                        'status': 403,
+                        'message': str(e),
+                    }
+                }))

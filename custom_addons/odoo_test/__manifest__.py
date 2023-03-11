@@ -65,5 +65,6 @@
         'views/import_views.xml',
         'wizard/import_views.xml',
         'views/auth_views.xml',
+        'views/data_views.xml',
     ],
 }

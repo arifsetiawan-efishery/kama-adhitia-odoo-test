@@ -4,3 +4,4 @@ access_kams_import_process_detail,kams.import.process.detail,model_kams_import_p
 access_kams_import_history,kams.import.history,model_kams_import_history,base.group_user,1,1,1,1
 access_kams_import_users,kams.import.users,model_kams_import_users,base.group_user,1,1,1,1
 access_kams_auth_config,kams.auth.config,model_kams_auth_config,base.group_system,1,1,1,1
+access_kams_cache_data,kams.cache.data,model_kams_cache_data,base.group_user,1,1,1,1

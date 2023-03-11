@@ -26,6 +26,7 @@ parso==0.8.3
 pycparser==2.21
 PyJWT==2.6.0
 pyOpenSSL==19.0.0
+pyrate-limiter==2.10.0
 pyRFC3339==1.1
 python-magic==0.4.27
 s3transfer==0.5.0

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<menuitem name="Fetch" id="base_menu_odoo_test_fetch" parent="odoo_test.base_menu_odoo_test" sequence="3"/>
+
+     <!--Tree for Cache Data tree view-->
+		<record id="cache_data_tree_view" model="ir.ui.view">
+			<field name="name">kams.cache.data.tree.view</field>
+			<field name="model">kams.cache.data</field>
+			<field name="arch" type="xml">
+				<tree create="false" edit="false" delete="false" import="false">
+					<field name="name"/>
+				</tree>
+			</field>
+		</record>
+
+		<!--Action-->
+		<record id="action_cache_data" model="ir.actions.act_window">
+			<field name="name">Cache Data</field>
+			<field name="res_model">kams.cache.data</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem name="Cache Data" action="action_cache_data" id="menu_cache_data" sequence="1" parent="base_menu_odoo_test_fetch"/>
+
+		
+	</data>
+</odoo>

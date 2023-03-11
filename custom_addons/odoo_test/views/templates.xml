@@ -10,11 +10,34 @@
 				<field name="state">code</field>
 				<field name="code">model.remove_finish_import_crons()</field>
 		</record>
+		<record id="efishery_data_fetch" model="ir.cron">
+				<field name="name">Efishery Fetch Data</field>
+				<field name='interval_number' eval="12"/>
+				<field name='interval_type'>hours</field>
+				<field name="doall" eval="False"/>
+				<field name="model_id" ref="odoo_test.model_kams_cache_data"/>
+				<field name="numbercall" eval="-1"/>
+				<field name="state">code</field>
+				<field name="code">model.fetch_data()</field>
+		</record>
+		<record id="fetch_currency_converter" model="ir.cron">
+				<field name="name">Get currency IDR to USD rate</field>
+				<field name='interval_number' eval="6"/>
+				<field name='interval_type'>hours</field>
+				<field name="doall" eval="False"/>
+				<field name="model_id" ref="odoo_test.model_kams_cache_data"/>
+				<field name="numbercall" eval="-1"/>
+				<field name="state">code</field>
+				<field name="code">model.get_currency_rate()</field>
+		</record>
 		<record id="configuration_auth_nih" model="kams.auth.config">
 				<field name="name">Config</field>
 				<field name='secret_key'>Test123</field>
 		</record>
-
+		<record id="current_currency_rate" model="ir.config_parameter">
+				<field name="key">currency_rate_idr_to_usd</field>
+				<field name='value'>1</field>
+		</record>
 		<template id="login_clear_session" name="Clear User Sessions" inherit_id="web.login">
 			<xpath expr="//p[hasclass('alert-danger')]" position="after">
 				<t t-if="logout_all">
