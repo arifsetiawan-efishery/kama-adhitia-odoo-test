@@ -24,12 +24,15 @@ class FetchCache(models.Model):
             rate = self.env['ir.config_parameter'].get_param(
                 'currency_rate_idr_to_usd', '1')
             for list in response:
-                usd_price = float(list.get('price')) / float(rate)
-                insert_price = {"usd_price": str(round(usd_price, 3))}
-                list.update(insert_price)
-                self.env['kams.cache.data'].create({
-                    "name": str(list)
-                })
+                try:
+                    usd_price = float(list.get('price')) / float(rate)
+                    insert_price = {"usd_price": str(round(usd_price, 3))}
+                    list.update(insert_price)
+                    self.env['kams.cache.data'].create({
+                        "name": str(list)
+                    })
+                except:
+                    continue
         except:
             pass
 
