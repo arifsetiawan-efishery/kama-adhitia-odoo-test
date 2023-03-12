@@ -1,0 +1,694 @@
+{
+	"info": {
+		"_postman_id": "49c252d9-c7ec-4c22-bf51-90309f469a03",
+		"name": "ODOO Fundamental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25412926"
+	},
+	"item": [
+		{
+			"name": "Get Token",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"jsonrpc\": \"2.0\",\r\n    \"params\":{\r\n        \"db\": \"demo\",\r\n        \"login\": \"test4\",\r\n        \"password\": \"test4\"\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/login",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jsonrpc\": \"2.0\",\r\n    \"params\":{\r\n        \"db\": \"project\",\r\n        \"login\": \"test1\",\r\n        \"password\": \"test12\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8069/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8069",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "268"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "session_id=1043208f418fb7b149b7a37fafedb88f60e917c7; Expires=Fri, 09-Jun-2023 12:39:10 GMT; Max-Age=7776000; HttpOnly; Path=/"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.16.1 Python/3.8.10"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 12:39:10 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": null,\n    \"result\": {\n        \"status\": 200,\n        \"message\": \"success\",\n        \"response\": {\n            \"auth_type\": \"Bearer\",\n            \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVGVzdDEiLCJlbWFpbCI6bnVsbCwicm9sZSI6InVzZXIifQ.dWKZ5PJ8MEzvk0BYV-8eL7cgnD8kbfLjNTAj7RSuxsY\"\n        }\n    }\n}"
+				},
+				{
+					"name": "Failed Login",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jsonrpc\": \"2.0\",\r\n    \"params\":{\r\n        \"db\": \"project\",\r\n        \"login\": \"test1\",\r\n        \"password\": \"test12\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8069/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8069",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "116"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "session_id=1043208f418fb7b149b7a37fafedb88f60e917c7; Expires=Fri, 09-Jun-2023 12:39:34 GMT; Max-Age=7776000; HttpOnly; Path=/"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.16.1 Python/3.8.10"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 12:39:34 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": null,\n    \"result\": {\n        \"status\": 400,\n        \"message\": \"Database name, username or password is wrong\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Fetching Data",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVGVzdDMiLCJlbWFpbCI6bnVsbCwicm9sZSI6InVzZXIifQ.GBH3f5nRBXDEfgIgNnXXIM5vPkyxoW-uXZg1-FX8_hE",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{host}}/api/fetch",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"fetch"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVGVzdDMiLCJlbWFpbCI6bnVsbCwicm9sZSI6InVzZXIifQ.GBH3f5nRBXDEfgIgNnXXIM5vPkyxoW-uXZg1-FX8_hE",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8069/api/fetch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8069",
+							"path": [
+								"api",
+								"fetch"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "54800"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "session_id=fb07bb5097f623db1c692fdb886e9785c22e1185; HttpOnly; Path=/"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.16.1 Python/3.8.10"
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 21:22:43 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"result\": {\n        \"status\": 200,\n        \"message\": \"Success\",\n        \"response\": [\n            {\n                \"uuid\": \"89714c55-abf6-4929-80e2-adbcb5a9aa76\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"10\",\n                \"price\": \"33000\",\n                \"tgl_parsed\": \"2022-01-01T04:16:56Z\",\n                \"timestamp\": \"1641010616658\",\n                \"usd_price\": \"2.129\"\n            },\n            {\n                \"uuid\": \"23f9dc90-1617-457f-bac5-3fe078de937d\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"SUMATERA BARAT\",\n                \"area_kota\": \"PADANG PARIAMAN\",\n                \"size\": \"130\",\n                \"price\": \"53000\",\n                \"tgl_parsed\": \"2022-01-02T13:40:22Z\",\n                \"timestamp\": \"1641130822111\",\n                \"usd_price\": \"3.419\"\n            },\n            {\n                \"uuid\": \"7eb45823-b10b-4804-984f-616660d4216c\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"90\",\n                \"price\": \"75000\",\n                \"tgl_parsed\": \"2022-01-05T05:02:44Z\",\n                \"timestamp\": \"1641358964562\",\n                \"usd_price\": \"4.838\"\n            },\n            {\n                \"uuid\": \"0da01a17-00bd-4f54-97df-27e4fddc1613\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"SUMATERA BARAT\",\n                \"area_kota\": \"PADANG PARIAMAN\",\n                \"size\": \"10\",\n                \"price\": \"75000\",\n                \"tgl_parsed\": \"2022-01-07T04:32:05Z\",\n                \"timestamp\": \"1641529925217\",\n                \"usd_price\": \"4.838\"\n            },\n            {\n                \"uuid\": \"69cb737a-ab84-4f4d-9e30-0e1c16e75174\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"140\",\n                \"price\": \"86000\",\n                \"tgl_parsed\": \"2022-01-07T04:39:52Z\",\n                \"timestamp\": \"1641530392124\",\n                \"usd_price\": \"5.547\"\n            },\n            {\n                \"uuid\": \"2edede1c-fb0d-43a4-8957-12501e054ea0\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"DKI JAKARTA\",\n                \"area_kota\": \"KOTA TUA\",\n                \"size\": \"60\",\n                \"price\": \"5000\",\n                \"tgl_parsed\": \"2022-01-07T07:06:10Z\",\n                \"timestamp\": \"1641539170331\",\n                \"usd_price\": \"0.323\"\n            },\n            {\n                \"uuid\": \"47420ce4-b2ef-4ecf-8fd6-6ca9751ba680\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"SULAWESI BARAT\",\n                \"area_kota\": \"MAMUJU UTARA\",\n                \"size\": \"130\",\n                \"price\": \"90000\",\n                \"tgl_parsed\": \"2022-01-07T11:54:32Z\",\n                \"timestamp\": \"1641556472608\",\n                \"usd_price\": \"5.805\"\n            },\n            {\n                \"uuid\": \"fec84998-bd1c-4dc1-bb05-a028daebbbd8\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"140\",\n                \"price\": \"22000\",\n                \"tgl_parsed\": \"2022-01-07T21:54:14Z\",\n                \"timestamp\": \"1641592454846\",\n                \"usd_price\": \"1.419\"\n            },\n            {\n                \"uuid\": \"76f805f6-4764-4e52-b70f-f26a2932912b\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"150\",\n                \"price\": \"80000\",\n                \"tgl_parsed\": \"2022-01-08T02:22:56Z\",\n                \"timestamp\": \"1641608576001\",\n                \"usd_price\": \"5.16\"\n            },\n            {\n                \"uuid\": \"306f9f82-14d2-4840-8404-11a625a08e85\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CILILIN\",\n                \"size\": \"20\",\n                \"price\": \"23000\",\n                \"tgl_parsed\": \"2022-01-09T13:51:37Z\",\n                \"timestamp\": \"1641736297951\",\n                \"usd_price\": \"1.484\"\n            },\n            {\n                \"uuid\": \"b90832a5-a2da-4d12-8935-92539e696df0\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"170\",\n                \"price\": \"8000\",\n                \"tgl_parsed\": \"2022-01-11T02:37:27Z\",\n                \"timestamp\": \"1641868647700\",\n                \"usd_price\": \"0.516\"\n            },\n            {\n                \"uuid\": \"91b685ef-ff94-4645-a0d9-25c92ffab34f\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"DKI JAKARTA\",\n                \"area_kota\": \"KOTA TUA\",\n                \"size\": \"30\",\n                \"price\": \"20000\",\n                \"tgl_parsed\": \"2022-01-11T15:27:36Z\",\n                \"timestamp\": \"1641914856388\",\n                \"usd_price\": \"1.29\"\n            },\n            {\n                \"uuid\": \"d8dd0efa-32f7-405c-a45c-ab78f07471b3\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"10\",\n                \"price\": \"11000\",\n                \"tgl_parsed\": \"2022-01-11T17:22:49Z\",\n                \"timestamp\": \"1641921769679\",\n                \"usd_price\": \"0.71\"\n            },\n            {\n                \"uuid\": \"f26acf61-170a-4bd6-8027-5b600fb5b6e0\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIREBON\",\n                \"size\": \"60\",\n                \"price\": \"68000\",\n                \"tgl_parsed\": \"2022-01-12T15:14:58Z\",\n                \"timestamp\": \"1642000498248\",\n                \"usd_price\": \"4.386\"\n            },\n            {\n                \"uuid\": \"14c9c4b1-eaee-4c0c-9fa1-0d9d4d94b882\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIREBON\",\n                \"size\": \"40\",\n                \"price\": \"7000\",\n                \"tgl_parsed\": \"2022-01-12T16:41:16Z\",\n                \"timestamp\": \"1642005676258\",\n                \"usd_price\": \"0.452\"\n            },\n            {\n                \"uuid\": \"6b80cace-6b3c-4a68-a279-e62ddd256318\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"10\",\n                \"price\": \"26000\",\n                \"tgl_parsed\": \"2022-01-13T15:46:38Z\",\n                \"timestamp\": \"1642088798667\",\n                \"usd_price\": \"1.677\"\n            },\n            {\n                \"uuid\": \"acac64a8-2eae-440d-a4cd-d5ddb2f72ecd\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"40\",\n                \"price\": \"98000\",\n                \"tgl_parsed\": \"2022-01-14T19:07:25Z\",\n                \"timestamp\": \"1642187245019\",\n                \"usd_price\": \"6.322\"\n            },\n            {\n                \"uuid\": \"e871b23a-f277-41d5-851a-486f62ac9ac6\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"190\",\n                \"price\": \"96000\",\n                \"tgl_parsed\": \"2022-01-14T19:33:36Z\",\n                \"timestamp\": \"1642188816559\",\n                \"usd_price\": \"6.193\"\n            },\n            {\n                \"uuid\": \"1773cdd7-15b0-4f62-ac9f-22f99a52b6e2\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"90\",\n                \"price\": \"22000\",\n                \"tgl_parsed\": \"2022-01-15T05:41:44Z\",\n                \"timestamp\": \"1642225304133\",\n                \"usd_price\": \"1.419\"\n            },\n            {\n                \"uuid\": \"05d80041-06cc-46a3-aeba-b40b3a881926\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"LAMPUNG\",\n                \"area_kota\": \"LAMPUNG TIMUR\",\n                \"size\": \"70\",\n                \"price\": \"80000\",\n                \"tgl_parsed\": \"2022-01-16T02:20:42Z\",\n                \"timestamp\": \"1642299642818\",\n                \"usd_price\": \"5.16\"\n            },\n            {\n                \"uuid\": \"aae16de3-4c56-427f-8cc2-31d92ed3cdad\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"40\",\n                \"price\": \"24000\",\n                \"tgl_parsed\": \"2022-01-16T07:23:10Z\",\n                \"timestamp\": \"1642317790831\",\n                \"usd_price\": \"1.548\"\n            },\n            {\n                \"uuid\": \"88a8a254-fa14-4fb1-90a5-e2a6bf676fc0\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"90\",\n                \"price\": \"67000\",\n                \"tgl_parsed\": \"2022-01-17T01:29:25Z\",\n                \"timestamp\": \"1642382965741\",\n                \"usd_price\": \"4.322\"\n            },\n            {\n                \"uuid\": \"af49c1ad-cdd5-47f3-a92a-2829a982f7a7\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"TEGAL\",\n                \"size\": \"30\",\n                \"price\": \"17000\",\n                \"tgl_parsed\": \"2022-01-17T18:37:53Z\",\n                \"timestamp\": \"1642444673133\",\n                \"usd_price\": \"1.097\"\n            },\n            {\n                \"uuid\": \"3963d008-13c6-4e91-b614-ac78d2649569\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"190\",\n                \"price\": \"19000\",\n                \"tgl_parsed\": \"2022-01-18T04:48:52Z\",\n                \"timestamp\": \"1642481332959\",\n                \"usd_price\": \"1.226\"\n            },\n            {\n                \"uuid\": \"f3b43007-8261-4adc-b513-be8c4a1c54f4\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"190\",\n                \"price\": \"64000\",\n                \"tgl_parsed\": \"2022-01-19T16:11:25Z\",\n                \"timestamp\": \"1642608685689\",\n                \"usd_price\": \"4.128\"\n            },\n            {\n                \"uuid\": \"af866199-efc2-42f4-a097-f51a50da936f\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"90\",\n                \"price\": \"16000\",\n                \"tgl_parsed\": \"2022-01-19T19:39:42Z\",\n                \"timestamp\": \"1642621182604\",\n                \"usd_price\": \"1.032\"\n            },\n            {\n                \"uuid\": \"2e66f54b-6403-4e94-9cfa-f4db35516fbc\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIMAHI\",\n                \"size\": \"160\",\n                \"price\": \"70000\",\n                \"tgl_parsed\": \"2022-01-21T09:27:03Z\",\n                \"timestamp\": \"1642757223190\",\n                \"usd_price\": \"4.515\"\n            },\n            {\n                \"uuid\": \"519ea907-2c26-4058-a127-2df0c9e4d9ee\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"10\",\n                \"price\": \"65000\",\n                \"tgl_parsed\": \"2022-01-23T04:46:57Z\",\n                \"timestamp\": \"1642913217419\",\n                \"usd_price\": \"4.193\"\n            },\n            {\n                \"uuid\": \"098c80ab-a8df-42ae-bca8-2828f190fb27\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"SUMATERA UTARA\",\n                \"area_kota\": \"MEDAN\",\n                \"size\": \"30\",\n                \"price\": \"81000\",\n                \"tgl_parsed\": \"2022-01-24T03:38:31Z\",\n                \"timestamp\": \"1642995511561\",\n                \"usd_price\": \"5.225\"\n            },\n            {\n                \"uuid\": \"89dd2cd5-d488-42fa-9fc8-25f58e563e21\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"40\",\n                \"price\": \"42000\",\n                \"tgl_parsed\": \"2022-01-24T08:12:11Z\",\n                \"timestamp\": \"1643011931976\",\n                \"usd_price\": \"2.709\"\n            },\n            {\n                \"uuid\": \"fcf751a3-1597-49c9-8628-cf2ec486cf47\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"KALIMANTAN TIMUR\",\n                \"area_kota\": \"BORNEO\",\n                \"size\": \"10\",\n                \"price\": \"99000\",\n                \"tgl_parsed\": \"2022-01-25T12:46:31Z\",\n                \"timestamp\": \"1643114791604\",\n                \"usd_price\": \"6.386\"\n            },\n            {\n                \"uuid\": \"21719a57-f644-4459-b218-2ce455adf38f\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"170\",\n                \"price\": \"83000\",\n                \"tgl_parsed\": \"2022-01-25T19:17:22Z\",\n                \"timestamp\": \"1643138242540\",\n                \"usd_price\": \"5.354\"\n            },\n            {\n                \"uuid\": \"058e3bef-c1d3-440c-8215-32bf004609d4\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PEMALANG\",\n                \"size\": \"100\",\n                \"price\": \"66000\",\n                \"tgl_parsed\": \"2022-01-26T03:15:44Z\",\n                \"timestamp\": \"1643166944067\",\n                \"usd_price\": \"4.257\"\n            },\n            {\n                \"uuid\": \"421483c5-aa2d-4c2a-a55e-39184c6b1334\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"40\",\n                \"price\": \"15000\",\n                \"tgl_parsed\": \"2022-01-26T12:48:13Z\",\n                \"timestamp\": \"1643201293260\",\n                \"usd_price\": \"0.968\"\n            },\n            {\n                \"uuid\": \"63cb8a90-75e5-4136-9567-f76f2bd47527\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"60\",\n                \"price\": \"2000\",\n                \"tgl_parsed\": \"2022-01-27T05:41:33Z\",\n                \"timestamp\": \"1643262093359\",\n                \"usd_price\": \"0.129\"\n            },\n            {\n                \"uuid\": \"c7dd1915-f3c6-4d7e-a515-c4c409535e41\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"LAMPUNG\",\n                \"area_kota\": \"LAMPUNG TIMUR\",\n                \"size\": \"90\",\n                \"price\": \"16000\",\n                \"tgl_parsed\": \"2022-01-27T07:54:53Z\",\n                \"timestamp\": \"1643270093520\",\n                \"usd_price\": \"1.032\"\n            },\n            {\n                \"uuid\": \"a7732739-174b-4c0d-9687-016739be506d\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"190\",\n                \"price\": \"32000\",\n                \"tgl_parsed\": \"2022-01-27T22:44:38Z\",\n                \"timestamp\": \"1643323478313\",\n                \"usd_price\": \"2.064\"\n            },\n            {\n                \"uuid\": \"976ca824-6b37-42e7-a6f3-0b69572a59e5\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"KALIMANTAN TIMUR\",\n                \"area_kota\": \"BORNEO\",\n                \"size\": \"160\",\n                \"price\": \"45000\",\n                \"tgl_parsed\": \"2022-01-28T05:23:43Z\",\n                \"timestamp\": \"1643347423925\",\n                \"usd_price\": \"2.903\"\n            },\n            {\n                \"uuid\": \"a28a580d-90c5-404e-970b-407dcc4835f1\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PEMALANG\",\n                \"size\": \"70\",\n                \"price\": \"92000\",\n                \"tgl_parsed\": \"2022-01-28T18:45:54Z\",\n                \"timestamp\": \"1643395554263\",\n                \"usd_price\": \"5.935\"\n            },\n            {\n                \"uuid\": \"eeb26b9b-0773-4352-9835-5afd45e9850c\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"JEMBER\",\n                \"size\": \"160\",\n                \"price\": \"29000\",\n                \"tgl_parsed\": \"2022-01-29T09:34:42Z\",\n                \"timestamp\": \"1643448882325\",\n                \"usd_price\": \"1.871\"\n            },\n            {\n                \"uuid\": \"8482de01-d9bd-4c63-b2d3-27c03568041a\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"140\",\n                \"price\": \"68000\",\n                \"tgl_parsed\": \"2022-01-30T15:27:48Z\",\n                \"timestamp\": \"1643556468477\",\n                \"usd_price\": \"4.386\"\n            },\n            {\n                \"uuid\": \"bba3c0e4-7cf3-4f79-b94a-de9f62661229\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"200\",\n                \"price\": \"6000\",\n                \"tgl_parsed\": \"2022-01-31T04:57:13Z\",\n                \"timestamp\": \"1643605033956\",\n                \"usd_price\": \"0.387\"\n            },\n            {\n                \"uuid\": \"bfec754d-9947-469f-b86b-23053f8195ad\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CILILIN\",\n                \"size\": \"140\",\n                \"price\": \"2000\",\n                \"tgl_parsed\": \"2022-01-31T06:51:08Z\",\n                \"timestamp\": \"1643611868334\",\n                \"usd_price\": \"0.129\"\n            },\n            {\n                \"uuid\": \"82305b19-20e2-458a-9e62-d65d99408296\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"TEGAL\",\n                \"size\": \"170\",\n                \"price\": \"50000\",\n                \"tgl_parsed\": \"2022-01-31T08:35:59Z\",\n                \"timestamp\": \"1643618159986\",\n                \"usd_price\": \"3.225\"\n            },\n            {\n                \"uuid\": \"36fecd5c-2387-4f34-8362-da7fa6d0ab4e\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"10\",\n                \"price\": \"78000\",\n                \"tgl_parsed\": \"2022-01-31T10:57:44Z\",\n                \"timestamp\": \"1643626664954\",\n                \"usd_price\": \"5.031\"\n            },\n            {\n                \"uuid\": \"e40b2b18-65af-4bf8-b9ce-baa01e4aa5e3\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"140\",\n                \"price\": \"71000\",\n                \"tgl_parsed\": \"2022-01-31T11:20:47Z\",\n                \"timestamp\": \"1643628047772\",\n                \"usd_price\": \"4.58\"\n            },\n            {\n                \"uuid\": \"202401d7-fbc4-4f90-abfc-2c473293a1c3\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"10\",\n                \"price\": \"95000\",\n                \"tgl_parsed\": \"2022-01-31T15:13:29Z\",\n                \"timestamp\": \"1643642009562\",\n                \"usd_price\": \"6.128\"\n            },\n            {\n                \"uuid\": \"b92fb388-2d3f-4309-8444-b88a2616f6c4\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"140\",\n                \"price\": \"7000\",\n                \"tgl_parsed\": \"2022-01-31T15:39:41Z\",\n                \"timestamp\": \"1643643581590\",\n                \"usd_price\": \"0.452\"\n            },\n            {\n                \"uuid\": \"29322ae7-c695-4574-9574-645dc2a84308\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"JEMBER\",\n                \"size\": \"80\",\n                \"price\": \"24000\",\n                \"tgl_parsed\": \"2022-01-31T22:28:30Z\",\n                \"timestamp\": \"1643668110234\",\n                \"usd_price\": \"1.548\"\n            },\n            {\n                \"uuid\": \"1071d00a-1562-48bf-acf2-cc56b13c59f5\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"BANDUNG\",\n                \"size\": \"180\",\n                \"price\": \"24000\",\n                \"tgl_parsed\": \"2022-02-01T00:23:12Z\",\n                \"timestamp\": \"1643674992235\",\n                \"usd_price\": \"1.548\"\n            },\n            {\n                \"uuid\": \"c6fa5c16-85fa-4a92-964d-f5b699201fed\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"70\",\n                \"price\": \"84000\",\n                \"tgl_parsed\": \"2022-02-01T15:23:11Z\",\n                \"timestamp\": \"1643728991435\",\n                \"usd_price\": \"5.418\"\n            },\n            {\n                \"uuid\": \"109e83cd-d775-48e6-9f98-61486921a71b\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"LAMPUNG\",\n                \"area_kota\": \"LAMPUNG TIMUR\",\n                \"size\": \"190\",\n                \"price\": \"20000\",\n                \"tgl_parsed\": \"2022-02-02T04:50:25Z\",\n                \"timestamp\": \"1643777425672\",\n                \"usd_price\": \"1.29\"\n            },\n            {\n                \"uuid\": \"244d6fd3-7372-458b-a5b9-7dc992bb08b0\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"130\",\n                \"price\": \"13000\",\n                \"tgl_parsed\": \"2022-02-02T08:01:07Z\",\n                \"timestamp\": \"1643788867219\",\n                \"usd_price\": \"0.839\"\n            },\n            {\n                \"uuid\": \"57df59be-27a6-4bf4-9085-1ac78b2200f5\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"SULAWESI BARAT\",\n                \"area_kota\": \"MAMUJU UTARA\",\n                \"size\": \"10\",\n                \"price\": \"58000\",\n                \"tgl_parsed\": \"2022-02-02T09:26:26Z\",\n                \"timestamp\": \"1643793986772\",\n                \"usd_price\": \"3.741\"\n            },\n            {\n                \"uuid\": \"eb07b5f9-92d6-4293-8815-2a6475eecb11\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"SITUBONDO\",\n                \"size\": \"100\",\n                \"price\": \"53000\",\n                \"tgl_parsed\": \"2022-02-03T08:37:22Z\",\n                \"timestamp\": \"1643877442905\",\n                \"usd_price\": \"3.419\"\n            },\n            {\n                \"uuid\": \"32cd9cb6-12b4-45e9-b92f-65e319db4e47\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIMAHI\",\n                \"size\": \"60\",\n                \"price\": \"44000\",\n                \"tgl_parsed\": \"2022-02-04T16:18:22Z\",\n                \"timestamp\": \"1643991502171\",\n                \"usd_price\": \"2.838\"\n            },\n            {\n                \"uuid\": \"edbd84c1-b50d-4572-8027-28c74f7be021\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"10\",\n                \"price\": \"62000\",\n                \"tgl_parsed\": \"2022-02-05T02:06:34Z\",\n                \"timestamp\": \"1644026794181\",\n                \"usd_price\": \"3.999\"\n            },\n            {\n                \"uuid\": \"715161f1-dcdc-4229-9a8c-509202ffa668\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"130\",\n                \"price\": \"93000\",\n                \"tgl_parsed\": \"2022-02-05T23:27:38Z\",\n                \"timestamp\": \"1644103658529\",\n                \"usd_price\": \"5.999\"\n            },\n            {\n                \"uuid\": \"ba9b2446-bfe0-425e-b58e-355432a33ba9\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"120\",\n                \"price\": \"92000\",\n                \"tgl_parsed\": \"2022-02-06T15:42:38Z\",\n                \"timestamp\": \"1644162158737\",\n                \"usd_price\": \"5.935\"\n            },\n            {\n                \"uuid\": \"1adfff35-57a3-4089-8e5c-5723bfadf0d2\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"190\",\n                \"price\": \"96000\",\n                \"tgl_parsed\": \"2022-02-07T13:15:55Z\",\n                \"timestamp\": \"1644239755199\",\n                \"usd_price\": \"6.193\"\n            },\n            {\n                \"uuid\": \"0ad91ba8-3d39-46e3-bce3-2422a2302a4d\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CILILIN\",\n                \"size\": \"90\",\n                \"price\": \"22000\",\n                \"tgl_parsed\": \"2022-02-08T01:39:54Z\",\n                \"timestamp\": \"1644284394627\",\n                \"usd_price\": \"1.419\"\n            },\n            {\n                \"uuid\": \"5496d542-a57c-42e3-9517-1b74f9a30dfd\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"60\",\n                \"price\": \"34000\",\n                \"tgl_parsed\": \"2022-02-08T16:25:28Z\",\n                \"timestamp\": \"1644337528582\",\n                \"usd_price\": \"2.193\"\n            },\n            {\n                \"uuid\": \"68af5bdf-a988-4261-929d-4208acc39c0b\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"LAMPUNG\",\n                \"area_kota\": \"LAMPUNG TIMUR\",\n                \"size\": \"20\",\n                \"price\": \"84000\",\n                \"tgl_parsed\": \"2022-02-10T20:03:34Z\",\n                \"timestamp\": \"1644523414691\",\n                \"usd_price\": \"5.418\"\n            },\n            {\n                \"uuid\": \"5379432f-c673-4794-8420-026ff1ef5ead\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"150\",\n                \"price\": \"59000\",\n                \"tgl_parsed\": \"2022-02-11T03:06:16Z\",\n                \"timestamp\": \"1644548776577\",\n                \"usd_price\": \"3.806\"\n            },\n            {\n                \"uuid\": \"52b6b536-1f40-4a51-b433-7cbed1ae6222\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PEMALANG\",\n                \"size\": \"20\",\n                \"price\": \"48000\",\n                \"tgl_parsed\": \"2022-02-12T04:42:19Z\",\n                \"timestamp\": \"1644640939919\",\n                \"usd_price\": \"3.096\"\n            },\n            {\n                \"uuid\": \"8f30dffe-21ff-41af-8fc1-6163b5a7353b\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"190\",\n                \"price\": \"67000\",\n                \"tgl_parsed\": \"2022-02-12T19:27:11Z\",\n                \"timestamp\": \"1644694031044\",\n                \"usd_price\": \"4.322\"\n            },\n            {\n                \"uuid\": \"f2266c8f-3715-426e-925a-59274b40d238\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"JEMBER\",\n                \"size\": \"180\",\n                \"price\": \"83000\",\n                \"tgl_parsed\": \"2022-02-13T08:07:27Z\",\n                \"timestamp\": \"1644739647587\",\n                \"usd_price\": \"5.354\"\n            },\n            {\n                \"uuid\": \"0c7de7b2-4975-41a4-99f8-2ef2b524a763\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"SUMATERA BARAT\",\n                \"area_kota\": \"PADANG PARIAMAN\",\n                \"size\": \"130\",\n                \"price\": \"2000\",\n                \"tgl_parsed\": \"2022-02-15T04:53:31Z\",\n                \"timestamp\": \"1644900811544\",\n                \"usd_price\": \"0.129\"\n            },\n            {\n                \"uuid\": \"f80e22f0-a38c-48d3-a8c4-98b6652107cb\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"190\",\n                \"price\": \"54000\",\n                \"tgl_parsed\": \"2022-02-17T14:09:33Z\",\n                \"timestamp\": \"1645106973490\",\n                \"usd_price\": \"3.483\"\n            },\n            {\n                \"uuid\": \"8fee7e67-b70e-4192-bce8-feffa918fe0b\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOR\",\n                \"size\": \"170\",\n                \"price\": \"50000\",\n                \"tgl_parsed\": \"2022-02-17T21:06:59Z\",\n                \"timestamp\": \"1645132019242\",\n                \"usd_price\": \"3.225\"\n            },\n            {\n                \"uuid\": \"02857ff7-e3c7-4966-9f82-b7f2353c31ce\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"200\",\n                \"price\": \"34000\",\n                \"tgl_parsed\": \"2022-02-20T07:18:52Z\",\n                \"timestamp\": \"1645341532475\",\n                \"usd_price\": \"2.193\"\n            },\n            {\n                \"uuid\": \"8ab5b64b-65c9-4e48-9657-d10c8972da27\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"120\",\n                \"price\": \"51000\",\n                \"tgl_parsed\": \"2022-02-20T21:11:45Z\",\n                \"timestamp\": \"1645391505144\",\n                \"usd_price\": \"3.29\"\n            },\n            {\n                \"uuid\": \"0288a17b-0a15-4daf-a2e4-12bb074a85bc\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"10\",\n                \"price\": \"40000\",\n                \"tgl_parsed\": \"2022-02-21T00:14:45Z\",\n                \"timestamp\": \"1645402485477\",\n                \"usd_price\": \"2.58\"\n            },\n            {\n                \"uuid\": \"2c024e0b-8dc4-4026-bd47-b8759e9cab36\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"DKI JAKARTA\",\n                \"area_kota\": \"KOTA TUA\",\n                \"size\": \"10\",\n                \"price\": \"52000\",\n                \"tgl_parsed\": \"2022-02-21T00:58:49Z\",\n                \"timestamp\": \"1645405129314\",\n                \"usd_price\": \"3.354\"\n            },\n            {\n                \"uuid\": \"af35c790-f443-4232-b9e0-65aa4bf139ef\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"SULAWESI BARAT\",\n                \"area_kota\": \"MAMUJU UTARA\",\n                \"size\": \"150\",\n                \"price\": \"99000\",\n                \"tgl_parsed\": \"2022-02-21T08:54:52Z\",\n                \"timestamp\": \"1645433692238\",\n                \"usd_price\": \"6.386\"\n            },\n            {\n                \"uuid\": \"b5e5d947-bd5d-405e-addb-583c7d6839f2\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"100\",\n                \"price\": \"92000\",\n                \"tgl_parsed\": \"2022-02-21T11:06:28Z\",\n                \"timestamp\": \"1645441588160\",\n                \"usd_price\": \"5.935\"\n            },\n            {\n                \"uuid\": \"2b304a8c-f426-4952-906c-553e059cd3c9\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"80\",\n                \"price\": \"72000\",\n                \"tgl_parsed\": \"2022-02-22T06:49:55Z\",\n                \"timestamp\": \"1645512595464\",\n                \"usd_price\": \"4.644\"\n            },\n            {\n                \"uuid\": \"ddbf636a-075d-48f3-b06a-6c9b2785b8c6\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"120\",\n                \"price\": \"55000\",\n                \"tgl_parsed\": \"2022-02-22T19:31:02Z\",\n                \"timestamp\": \"1645558262731\",\n                \"usd_price\": \"3.548\"\n            },\n            {\n                \"uuid\": \"cc8a5fcc-1377-4aef-b92b-089bbf3be428\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"SUMATERA BARAT\",\n                \"area_kota\": \"PADANG PARIAMAN\",\n                \"size\": \"30\",\n                \"price\": \"64000\",\n                \"tgl_parsed\": \"2022-02-23T12:42:54Z\",\n                \"timestamp\": \"1645620174003\",\n                \"usd_price\": \"4.128\"\n            },\n            {\n                \"uuid\": \"1474f920-1e8e-4d72-93dd-34637c5a42f7\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PURWOREJO\",\n                \"size\": \"120\",\n                \"price\": \"23000\",\n                \"tgl_parsed\": \"2022-02-24T05:41:35Z\",\n                \"timestamp\": \"1645681295633\",\n                \"usd_price\": \"1.484\"\n            },\n            {\n                \"uuid\": \"9480b50e-ad50-4972-82ba-40e25341ea4e\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"170\",\n                \"price\": \"3000\",\n                \"tgl_parsed\": \"2022-02-25T01:41:19Z\",\n                \"timestamp\": \"1645753279327\",\n                \"usd_price\": \"0.194\"\n            },\n            {\n                \"uuid\": \"c744f558-7d21-4e25-97a5-46d7c914a1a2\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"100\",\n                \"price\": \"78000\",\n                \"tgl_parsed\": \"2022-02-25T07:14:32Z\",\n                \"timestamp\": \"1645773272259\",\n                \"usd_price\": \"5.031\"\n            },\n            {\n                \"uuid\": \"55cf35d1-04dc-4ceb-9c0b-6ec4b37f1f6c\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"JEMBER\",\n                \"size\": \"70\",\n                \"price\": \"15000\",\n                \"tgl_parsed\": \"2022-02-25T16:06:30Z\",\n                \"timestamp\": \"1645805190327\",\n                \"usd_price\": \"0.968\"\n            },\n            {\n                \"uuid\": \"39e1b98d-6237-4d2c-98b2-3e3b1bcd7aa7\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"SITUBONDO\",\n                \"size\": \"180\",\n                \"price\": \"53000\",\n                \"tgl_parsed\": \"2022-02-26T12:39:45Z\",\n                \"timestamp\": \"1645879185630\",\n                \"usd_price\": \"3.419\"\n            },\n            {\n                \"uuid\": \"7e73db34-ee6a-43b6-9a02-5993ebe80416\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"DKI JAKARTA\",\n                \"area_kota\": \"KOTA TUA\",\n                \"size\": \"200\",\n                \"price\": \"4000\",\n                \"tgl_parsed\": \"2022-02-27T08:27:02Z\",\n                \"timestamp\": \"1645950422683\",\n                \"usd_price\": \"0.258\"\n            },\n            {\n                \"uuid\": \"2a324396-4e00-42c9-a94b-b43aab1b150c\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"SULAWESI BARAT\",\n                \"area_kota\": \"MAMUJU UTARA\",\n                \"size\": \"70\",\n                \"price\": \"57000\",\n                \"tgl_parsed\": \"2022-02-27T12:00:08Z\",\n                \"timestamp\": \"1645963208708\",\n                \"usd_price\": \"3.677\"\n            },\n            {\n                \"uuid\": \"a631190f-9934-4a29-8a53-7872355cd93b\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"TEGAL\",\n                \"size\": \"20\",\n                \"price\": \"75000\",\n                \"tgl_parsed\": \"2022-02-27T14:56:55Z\",\n                \"timestamp\": \"1645973815666\",\n                \"usd_price\": \"4.838\"\n            },\n            {\n                \"uuid\": \"fbdf94c7-6ab6-460d-8444-5aaf1e0c64b8\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"200\",\n                \"price\": \"96000\",\n                \"tgl_parsed\": \"2022-02-27T20:40:46Z\",\n                \"timestamp\": \"1645994446958\",\n                \"usd_price\": \"6.193\"\n            },\n            {\n                \"uuid\": \"a69630f6-93cf-4166-ad81-694cc97ffb5e\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"190\",\n                \"price\": \"14000\",\n                \"tgl_parsed\": \"2022-02-28T09:55:58Z\",\n                \"timestamp\": \"1646042158620\",\n                \"usd_price\": \"0.903\"\n            },\n            {\n                \"uuid\": \"dc349e4b-1554-44a6-82ba-d141aa213880\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"50\",\n                \"price\": \"21000\",\n                \"tgl_parsed\": \"2022-03-01T01:09:56Z\",\n                \"timestamp\": \"1646096996576\",\n                \"usd_price\": \"1.355\"\n            },\n            {\n                \"uuid\": \"d8caa194-f26b-46f2-b346-93361b89c356\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"TEGAL\",\n                \"size\": \"150\",\n                \"price\": \"82000\",\n                \"tgl_parsed\": \"2022-03-02T07:10:34Z\",\n                \"timestamp\": \"1646205034505\",\n                \"usd_price\": \"5.289\"\n            },\n            {\n                \"uuid\": \"62475738-737b-405a-9bd3-84af998a6730\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"KALIMANTAN TIMUR\",\n                \"area_kota\": \"BORNEO\",\n                \"size\": \"60\",\n                \"price\": \"82000\",\n                \"tgl_parsed\": \"2022-03-02T19:50:46Z\",\n                \"timestamp\": \"1646250646818\",\n                \"usd_price\": \"5.289\"\n            },\n            {\n                \"uuid\": \"4f04dc60-7c05-4119-960f-8dff9ae0595b\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"SULAWESI BARAT\",\n                \"area_kota\": \"MAMUJU UTARA\",\n                \"size\": \"20\",\n                \"price\": \"71000\",\n                \"tgl_parsed\": \"2022-03-03T17:32:32Z\",\n                \"timestamp\": \"1646328752979\",\n                \"usd_price\": \"4.58\"\n            },\n            {\n                \"uuid\": \"78fd4e7d-65b5-4091-842a-e440ea5c71cc\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"BANDUNG\",\n                \"size\": \"30\",\n                \"price\": \"17000\",\n                \"tgl_parsed\": \"2022-03-03T22:38:54Z\",\n                \"timestamp\": \"1646347134877\",\n                \"usd_price\": \"1.097\"\n            },\n            {\n                \"uuid\": \"71252762-ccd6-468a-9749-3189544e48fd\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"KALIMANTAN TIMUR\",\n                \"area_kota\": \"BORNEO\",\n                \"size\": \"120\",\n                \"price\": \"93000\",\n                \"tgl_parsed\": \"2022-03-04T03:33:24Z\",\n                \"timestamp\": \"1646364804064\",\n                \"usd_price\": \"5.999\"\n            },\n            {\n                \"uuid\": \"e16ff524-6d13-4275-a140-ea616b28078e\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PURWOREJO\",\n                \"size\": \"60\",\n                \"price\": \"1000\",\n                \"tgl_parsed\": \"2022-03-04T13:18:53Z\",\n                \"timestamp\": \"1646399933785\",\n                \"usd_price\": \"0.065\"\n            },\n            {\n                \"uuid\": \"6c2c7903-e8d4-45c8-81ed-5db418e95856\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"20\",\n                \"price\": \"18000\",\n                \"tgl_parsed\": \"2022-03-04T15:35:19Z\",\n                \"timestamp\": \"1646408119308\",\n                \"usd_price\": \"1.161\"\n            },\n            {\n                \"uuid\": \"9a081c52-36fe-425e-8a6f-1cf08a33ee7b\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOR\",\n                \"size\": \"200\",\n                \"price\": \"5000\",\n                \"tgl_parsed\": \"2022-03-04T18:08:18Z\",\n                \"timestamp\": \"1646417298007\",\n                \"usd_price\": \"0.323\"\n            },\n            {\n                \"uuid\": \"f840173d-d880-4692-959f-7d4faa7c06a0\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"140\",\n                \"price\": \"2000\",\n                \"tgl_parsed\": \"2022-03-05T09:06:54Z\",\n                \"timestamp\": \"1646471214212\",\n                \"usd_price\": \"0.129\"\n            },\n            {\n                \"uuid\": \"7b521f52-deee-4be3-9689-0b7972861423\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"JEMBER\",\n                \"size\": \"110\",\n                \"price\": \"35000\",\n                \"tgl_parsed\": \"2022-03-06T19:56:04Z\",\n                \"timestamp\": \"1646596564508\",\n                \"usd_price\": \"2.258\"\n            },\n            {\n                \"uuid\": \"02b5c725-9924-4e0f-84a3-0d6bfc9b1c68\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"150\",\n                \"price\": \"72000\",\n                \"tgl_parsed\": \"2022-03-07T05:17:07Z\",\n                \"timestamp\": \"1646630227350\",\n                \"usd_price\": \"4.644\"\n            },\n            {\n                \"uuid\": \"56038fcf-4af4-4fb5-b2e8-d8ef1ee9597a\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"70\",\n                \"price\": \"21000\",\n                \"tgl_parsed\": \"2022-03-07T23:52:56Z\",\n                \"timestamp\": \"1646697176605\",\n                \"usd_price\": \"1.355\"\n            },\n            {\n                \"uuid\": \"057dabc1-f63f-4811-9e81-582e4e8fd64d\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"160\",\n                \"price\": \"38000\",\n                \"tgl_parsed\": \"2022-03-10T13:59:03Z\",\n                \"timestamp\": \"1646920743982\",\n                \"usd_price\": \"2.451\"\n            },\n            {\n                \"uuid\": \"12d4eaba-4934-40bf-b15d-9e5dff0eccf0\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"DKI JAKARTA\",\n                \"area_kota\": \"KOTA TUA\",\n                \"size\": \"50\",\n                \"price\": \"19000\",\n                \"tgl_parsed\": \"2022-03-10T22:31:29Z\",\n                \"timestamp\": \"1646951489546\",\n                \"usd_price\": \"1.226\"\n            },\n            {\n                \"uuid\": \"16522216-f7cf-4084-b842-6a9c9fc1d53c\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJO\",\n                \"size\": \"30\",\n                \"price\": \"11000\",\n                \"tgl_parsed\": \"2022-03-11T23:03:22Z\",\n                \"timestamp\": \"1647039802257\",\n                \"usd_price\": \"0.71\"\n            },\n            {\n                \"uuid\": \"cf242430-503f-4c7d-bf65-7fcd2171d77b\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PURWOREJO\",\n                \"size\": \"60\",\n                \"price\": \"37000\",\n                \"tgl_parsed\": \"2022-03-11T23:18:34Z\",\n                \"timestamp\": \"1647040714790\",\n                \"usd_price\": \"2.387\"\n            },\n            {\n                \"uuid\": \"c9c27222-3545-4ff7-ac26-62dc61780814\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"100\",\n                \"price\": \"48000\",\n                \"tgl_parsed\": \"2022-03-12T16:33:29Z\",\n                \"timestamp\": \"1647102809963\",\n                \"usd_price\": \"3.096\"\n            },\n            {\n                \"uuid\": \"76b48123-79fd-4f49-b497-ad9b455ed0f9\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"200\",\n                \"price\": \"1000\",\n                \"tgl_parsed\": \"2022-03-13T04:15:13Z\",\n                \"timestamp\": \"1647144913403\",\n                \"usd_price\": \"0.065\"\n            },\n            {\n                \"uuid\": \"34201072-6fce-4bb4-90ac-645ee2cb11fb\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"60\",\n                \"price\": \"42000\",\n                \"tgl_parsed\": \"2022-03-13T21:06:26Z\",\n                \"timestamp\": \"1647205586072\",\n                \"usd_price\": \"2.709\"\n            },\n            {\n                \"uuid\": \"50a4106a-450e-4d8e-b1a4-08a0c3944260\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJO\",\n                \"size\": \"80\",\n                \"price\": \"36000\",\n                \"tgl_parsed\": \"2022-03-13T22:26:46Z\",\n                \"timestamp\": \"1647210406620\",\n                \"usd_price\": \"2.322\"\n            },\n            {\n                \"uuid\": \"697ca135-f029-4a75-b2d4-6a0289d258b7\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"JEMBER\",\n                \"size\": \"110\",\n                \"price\": \"11000\",\n                \"tgl_parsed\": \"2022-03-14T05:28:03Z\",\n                \"timestamp\": \"1647235683041\",\n                \"usd_price\": \"0.71\"\n            },\n            {\n                \"uuid\": \"bb02707b-ad56-4bec-a5f6-666f0f7606d0\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"BANDUNG\",\n                \"size\": \"10\",\n                \"price\": \"47000\",\n                \"tgl_parsed\": \"2022-03-14T07:17:58Z\",\n                \"timestamp\": \"1647242278199\",\n                \"usd_price\": \"3.032\"\n            },\n            {\n                \"uuid\": \"c269b873-24b1-42ac-bf02-9f01b5c22d99\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"60\",\n                \"price\": \"36000\",\n                \"tgl_parsed\": \"2022-03-14T12:54:55Z\",\n                \"timestamp\": \"1647262495727\",\n                \"usd_price\": \"2.322\"\n            },\n            {\n                \"uuid\": \"524dac84-cf01-43dc-a5f7-84b8c4ab6e82\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"40\",\n                \"price\": \"12000\",\n                \"tgl_parsed\": \"2022-03-15T09:41:47Z\",\n                \"timestamp\": \"1647337307216\",\n                \"usd_price\": \"0.774\"\n            },\n            {\n                \"uuid\": \"90fb49bf-0fd7-4399-babf-08eb0734958f\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIMAHI\",\n                \"size\": \"10\",\n                \"price\": \"86000\",\n                \"tgl_parsed\": \"2022-03-16T07:58:35Z\",\n                \"timestamp\": \"1647417515008\",\n                \"usd_price\": \"5.547\"\n            },\n            {\n                \"uuid\": \"8d3899e2-6bee-4971-a3df-2a800107ad29\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"150\",\n                \"price\": \"52000\",\n                \"tgl_parsed\": \"2022-03-16T18:45:36Z\",\n                \"timestamp\": \"1647456336683\",\n                \"usd_price\": \"3.354\"\n            },\n            {\n                \"uuid\": \"94792b1e-b9f6-4987-b87b-ebc2d524df14\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"LAMPUNG\",\n                \"area_kota\": \"LAMPUNG TIMUR\",\n                \"size\": \"90\",\n                \"price\": \"95000\",\n                \"tgl_parsed\": \"2022-03-18T21:03:34Z\",\n                \"timestamp\": \"1647637414030\",\n                \"usd_price\": \"6.128\"\n            },\n            {\n                \"uuid\": \"aa64bb6e-4e5b-47fc-b4e7-78199508b7cc\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"60\",\n                \"price\": \"94000\",\n                \"tgl_parsed\": \"2022-03-19T10:22:58Z\",\n                \"timestamp\": \"1647685378825\",\n                \"usd_price\": \"6.064\"\n            },\n            {\n                \"uuid\": \"96c2f193-597c-4bdf-830e-40d7b9b5bab1\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"180\",\n                \"price\": \"17000\",\n                \"tgl_parsed\": \"2022-03-19T13:42:35Z\",\n                \"timestamp\": \"1647697355550\",\n                \"usd_price\": \"1.097\"\n            },\n            {\n                \"uuid\": \"efd93949-36eb-48dc-93ad-1a4cbe8170d0\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"60\",\n                \"price\": \"75000\",\n                \"tgl_parsed\": \"2022-03-20T02:48:05Z\",\n                \"timestamp\": \"1647744485878\",\n                \"usd_price\": \"4.838\"\n            },\n            {\n                \"uuid\": \"844bc94e-e025-4a87-9062-cd24bf81abf5\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"TEGAL\",\n                \"size\": \"130\",\n                \"price\": \"83000\",\n                \"tgl_parsed\": \"2022-03-20T08:14:56Z\",\n                \"timestamp\": \"1647764096570\",\n                \"usd_price\": \"5.354\"\n            },\n            {\n                \"uuid\": \"59560223-91b7-484d-a979-063cf8ab34dc\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"SULAWESI BARAT\",\n                \"area_kota\": \"MAMUJU UTARA\",\n                \"size\": \"160\",\n                \"price\": \"20000\",\n                \"tgl_parsed\": \"2022-03-20T12:20:00Z\",\n                \"timestamp\": \"1647778800298\",\n                \"usd_price\": \"1.29\"\n            },\n            {\n                \"uuid\": \"fac90c3b-30e4-4a1d-becb-3f0620c09729\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"90\",\n                \"price\": \"26000\",\n                \"tgl_parsed\": \"2022-03-20T16:43:32Z\",\n                \"timestamp\": \"1647794612140\",\n                \"usd_price\": \"1.677\"\n            },\n            {\n                \"uuid\": \"8937eb37-b9e1-43d7-8957-3cc1d6e1c435\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"10\",\n                \"price\": \"10000\",\n                \"tgl_parsed\": \"2022-03-21T12:24:35Z\",\n                \"timestamp\": \"1647865475681\",\n                \"usd_price\": \"0.645\"\n            },\n            {\n                \"uuid\": \"998fa76b-ff2c-4f1a-a85c-95f345e8fd58\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PEMALANG\",\n                \"size\": \"40\",\n                \"price\": \"56000\",\n                \"tgl_parsed\": \"2022-03-22T06:37:13Z\",\n                \"timestamp\": \"1647931033576\",\n                \"usd_price\": \"3.612\"\n            },\n            {\n                \"uuid\": \"9807b154-162b-4f3f-bd05-a05a59c744de\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"110\",\n                \"price\": \"98000\",\n                \"tgl_parsed\": \"2022-03-23T07:27:54Z\",\n                \"timestamp\": \"1648020474110\",\n                \"usd_price\": \"6.322\"\n            },\n            {\n                \"uuid\": \"7eeccc03-5674-41d9-991d-76a8e1796331\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"90\",\n                \"price\": \"56000\",\n                \"tgl_parsed\": \"2022-03-24T08:47:32Z\",\n                \"timestamp\": \"1648111652898\",\n                \"usd_price\": \"3.612\"\n            },\n            {\n                \"uuid\": \"0c71c482-0188-43bc-bd65-ba2a7cfec16f\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"SUMATERA UTARA\",\n                \"area_kota\": \"MEDAN\",\n                \"size\": \"100\",\n                \"price\": \"14000\",\n                \"tgl_parsed\": \"2022-03-24T09:56:55Z\",\n                \"timestamp\": \"1648115815739\",\n                \"usd_price\": \"0.903\"\n            },\n            {\n                \"uuid\": \"9a7f5be6-c219-4834-9200-2910537cc13b\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"120\",\n                \"price\": \"57000\",\n                \"tgl_parsed\": \"2022-03-24T10:38:51Z\",\n                \"timestamp\": \"1648118331823\",\n                \"usd_price\": \"3.677\"\n            },\n            {\n                \"uuid\": \"4ef240d2-5ff5-4ada-a31e-e261fe85b68f\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"10\",\n                \"price\": \"83000\",\n                \"tgl_parsed\": \"2022-03-24T16:08:52Z\",\n                \"timestamp\": \"1648138132354\",\n                \"usd_price\": \"5.354\"\n            },\n            {\n                \"uuid\": \"b3382695-d39a-4309-a67e-f8520766f8a0\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"170\",\n                \"price\": \"92000\",\n                \"tgl_parsed\": \"2022-03-25T12:30:12Z\",\n                \"timestamp\": \"1648211412806\",\n                \"usd_price\": \"5.935\"\n            },\n            {\n                \"uuid\": \"4240be21-b13d-45b6-ae12-8d02a2e30c32\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIREBON\",\n                \"size\": \"30\",\n                \"price\": \"95000\",\n                \"tgl_parsed\": \"2022-03-26T18:22:11Z\",\n                \"timestamp\": \"1648318931601\",\n                \"usd_price\": \"6.128\"\n            },\n            {\n                \"uuid\": \"66982b4c-010b-43ee-9bcf-db078529b1c3\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"SUMATERA UTARA\",\n                \"area_kota\": \"MEDAN\",\n                \"size\": \"30\",\n                \"price\": \"64000\",\n                \"tgl_parsed\": \"2022-03-28T19:34:29Z\",\n                \"timestamp\": \"1648496069348\",\n                \"usd_price\": \"4.128\"\n            },\n            {\n                \"uuid\": \"0ab948a0-9da3-4608-8fa1-d33057c66096\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"200\",\n                \"price\": \"36000\",\n                \"tgl_parsed\": \"2022-03-28T19:52:52Z\",\n                \"timestamp\": \"1648497172263\",\n                \"usd_price\": \"2.322\"\n            },\n            {\n                \"uuid\": \"02873149-0718-4b85-a21a-247058157692\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PURWOREJO\",\n                \"size\": \"90\",\n                \"price\": \"35000\",\n                \"tgl_parsed\": \"2022-03-30T18:46:28Z\",\n                \"timestamp\": \"1648665988448\",\n                \"usd_price\": \"2.258\"\n            },\n            {\n                \"uuid\": \"970396ae-80f1-4dbd-9b35-ce760932b1de\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"60\",\n                \"price\": \"83000\",\n                \"tgl_parsed\": \"2022-03-30T19:25:42Z\",\n                \"timestamp\": \"1648668342689\",\n                \"usd_price\": \"5.354\"\n            },\n            {\n                \"uuid\": \"07c1118e-9f8d-46b4-bfa7-3a691fe44ce8\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIMAHI\",\n                \"size\": \"170\",\n                \"price\": \"96000\",\n                \"tgl_parsed\": \"2022-04-01T09:52:30Z\",\n                \"timestamp\": \"1648806750984\",\n                \"usd_price\": \"6.193\"\n            },\n            {\n                \"uuid\": \"55f879b4-2a30-4527-a942-5125c492011f\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"140\",\n                \"price\": \"22000\",\n                \"tgl_parsed\": \"2022-04-02T09:21:22Z\",\n                \"timestamp\": \"1648891282005\",\n                \"usd_price\": \"1.419\"\n            },\n            {\n                \"uuid\": \"90cacb22-3f6b-4d1b-b9fa-73bde659948f\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"140\",\n                \"price\": \"46000\",\n                \"tgl_parsed\": \"2022-04-02T12:41:03Z\",\n                \"timestamp\": \"1648903263564\",\n                \"usd_price\": \"2.967\"\n            },\n            {\n                \"uuid\": \"6d92fbe8-4366-4cd0-b92e-f759873c4756\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"SITUBONDO\",\n                \"size\": \"190\",\n                \"price\": \"4000\",\n                \"tgl_parsed\": \"2022-04-02T19:31:50Z\",\n                \"timestamp\": \"1648927910022\",\n                \"usd_price\": \"0.258\"\n            },\n            {\n                \"uuid\": \"538adeba-195c-41cf-8d9b-6d49fd2e9ee6\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"170\",\n                \"price\": \"82000\",\n                \"tgl_parsed\": \"2022-04-04T21:59:53Z\",\n                \"timestamp\": \"1649109593954\",\n                \"usd_price\": \"5.289\"\n            },\n            {\n                \"uuid\": \"99c35fa2-8b5c-4124-bc04-406342715cac\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"130\",\n                \"price\": \"7000\",\n                \"tgl_parsed\": \"2022-04-07T08:35:54Z\",\n                \"timestamp\": \"1649320554811\",\n                \"usd_price\": \"0.452\"\n            },\n            {\n                \"uuid\": \"1de6dea5-5f69-4d85-a079-87f882fbfb5c\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"60\",\n                \"price\": \"85000\",\n                \"tgl_parsed\": \"2022-04-08T08:38:06Z\",\n                \"timestamp\": \"1649407086197\",\n                \"usd_price\": \"5.483\"\n            },\n            {\n                \"uuid\": \"d4c17f17-e915-4003-9b15-bc554cfaf079\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"40\",\n                \"price\": \"62000\",\n                \"tgl_parsed\": \"2022-04-08T14:04:18Z\",\n                \"timestamp\": \"1649426658927\",\n                \"usd_price\": \"3.999\"\n            },\n            {\n                \"uuid\": \"950014e4-2268-48f2-8746-07836476cf96\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"BANDUNG\",\n                \"size\": \"170\",\n                \"price\": \"73000\",\n                \"tgl_parsed\": \"2022-04-09T07:00:26Z\",\n                \"timestamp\": \"1649487626714\",\n                \"usd_price\": \"4.709\"\n            },\n            {\n                \"uuid\": \"f4935873-0876-4e40-a8f2-15a6fcf3acac\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"160\",\n                \"price\": \"73000\",\n                \"tgl_parsed\": \"2022-04-09T12:42:28Z\",\n                \"timestamp\": \"1649508148388\",\n                \"usd_price\": \"4.709\"\n            },\n            {\n                \"uuid\": \"e81974c0-cbef-4bf7-83a0-77cb006def39\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"BALI\",\n                \"area_kota\": \"BULELENG\",\n                \"size\": \"130\",\n                \"price\": \"16000\",\n                \"tgl_parsed\": \"2022-04-10T05:58:16Z\",\n                \"timestamp\": \"1649570296057\",\n                \"usd_price\": \"1.032\"\n            },\n            {\n                \"uuid\": \"ed476d69-d0e0-4d16-9ad5-09acfcbdb487\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIMAHI\",\n                \"size\": \"20\",\n                \"price\": \"35000\",\n                \"tgl_parsed\": \"2022-04-11T07:35:57Z\",\n                \"timestamp\": \"1649662557779\",\n                \"usd_price\": \"2.258\"\n            },\n            {\n                \"uuid\": \"79da2030-e315-48aa-b82e-7e53882ef674\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"DKI JAKARTA\",\n                \"area_kota\": \"KOTA TUA\",\n                \"size\": \"20\",\n                \"price\": \"24000\",\n                \"tgl_parsed\": \"2022-04-11T20:37:32Z\",\n                \"timestamp\": \"1649709452151\",\n                \"usd_price\": \"1.548\"\n            },\n            {\n                \"uuid\": \"a3f33b2e-1a28-49b1-9ceb-f070c093bad7\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"30\",\n                \"price\": \"37000\",\n                \"tgl_parsed\": \"2022-04-13T14:22:47Z\",\n                \"timestamp\": \"1649859767389\",\n                \"usd_price\": \"2.387\"\n            },\n            {\n                \"uuid\": \"43d00f8f-aff8-4a02-962c-a43bf087b5b1\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"70\",\n                \"price\": \"68000\",\n                \"tgl_parsed\": \"2022-04-13T19:24:33Z\",\n                \"timestamp\": \"1649877873083\",\n                \"usd_price\": \"4.386\"\n            },\n            {\n                \"uuid\": \"8faa9aa1-ac37-4e97-895d-ed8006c55856\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"110\",\n                \"price\": \"24000\",\n                \"tgl_parsed\": \"2022-04-14T18:00:11Z\",\n                \"timestamp\": \"1649959211528\",\n                \"usd_price\": \"1.548\"\n            },\n            {\n                \"uuid\": \"cd7fdc3f-afac-47ac-b766-dac99f9071cb\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"SUMATERA BARAT\",\n                \"area_kota\": \"PADANG PARIAMAN\",\n                \"size\": \"20\",\n                \"price\": \"59000\",\n                \"tgl_parsed\": \"2022-04-15T04:23:28Z\",\n                \"timestamp\": \"1649996608355\",\n                \"usd_price\": \"3.806\"\n            },\n            {\n                \"uuid\": \"78d83fca-1648-4a53-bfa1-c55dd2857474\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"20\",\n                \"price\": \"57000\",\n                \"tgl_parsed\": \"2022-04-15T12:22:54Z\",\n                \"timestamp\": \"1650025374655\",\n                \"usd_price\": \"3.677\"\n            },\n            {\n                \"uuid\": \"b7fc7659-3ac4-4ead-b42b-0f3897b2509b\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PURWOREJO\",\n                \"size\": \"190\",\n                \"price\": \"42000\",\n                \"tgl_parsed\": \"2022-04-15T19:15:39Z\",\n                \"timestamp\": \"1650050139820\",\n                \"usd_price\": \"2.709\"\n            },\n            {\n                \"uuid\": \"53c8c79c-36ff-4a46-86e1-f9d5cb1b229f\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"100\",\n                \"price\": \"95000\",\n                \"tgl_parsed\": \"2022-04-15T20:36:17Z\",\n                \"timestamp\": \"1650054977203\",\n                \"usd_price\": \"6.128\"\n            },\n            {\n                \"uuid\": \"33f3b55b-aa76-4715-b5fa-0e5630858d62\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"LAMPUNG\",\n                \"area_kota\": \"LAMPUNG TIMUR\",\n                \"size\": \"150\",\n                \"price\": \"39000\",\n                \"tgl_parsed\": \"2022-04-15T23:27:40Z\",\n                \"timestamp\": \"1650065260867\",\n                \"usd_price\": \"2.516\"\n            },\n            {\n                \"uuid\": \"bd93ecb0-f009-4823-9b35-fa679ac27448\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"170\",\n                \"price\": \"4000\",\n                \"tgl_parsed\": \"2022-04-16T07:04:15Z\",\n                \"timestamp\": \"1650092655314\",\n                \"usd_price\": \"0.258\"\n            },\n            {\n                \"uuid\": \"d8f09fbc-4478-434b-bee4-ea813b654a26\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"70\",\n                \"price\": \"83000\",\n                \"tgl_parsed\": \"2022-04-17T00:23:45Z\",\n                \"timestamp\": \"1650155025557\",\n                \"usd_price\": \"5.354\"\n            },\n            {\n                \"uuid\": \"9417af61-9bf7-47d0-a462-f14406536118\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"130\",\n                \"price\": \"1000\",\n                \"tgl_parsed\": \"2022-04-18T13:42:18Z\",\n                \"timestamp\": \"1650289338822\",\n                \"usd_price\": \"0.065\"\n            },\n            {\n                \"uuid\": \"69dc3b21-1ce6-4d10-9f08-c400540407ab\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"60\",\n                \"price\": \"91000\",\n                \"tgl_parsed\": \"2022-04-19T22:04:53Z\",\n                \"timestamp\": \"1650405893422\",\n                \"usd_price\": \"5.87\"\n            },\n            {\n                \"uuid\": \"ebdce828-209a-4efd-9342-b4288b42fea5\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"20\",\n                \"price\": \"61000\",\n                \"tgl_parsed\": \"2022-04-21T15:49:53Z\",\n                \"timestamp\": \"1650556193148\",\n                \"usd_price\": \"3.935\"\n            },\n            {\n                \"uuid\": \"7a46aca0-cfd2-4a28-91ee-e933aad51346\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"30\",\n                \"price\": \"53000\",\n                \"tgl_parsed\": \"2022-04-22T05:45:55Z\",\n                \"timestamp\": \"1650606355388\",\n                \"usd_price\": \"3.419\"\n            },\n            {\n                \"uuid\": \"2f54ec57-bc61-401c-aa7a-9478dbcdd4f2\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"90\",\n                \"price\": \"94000\",\n                \"tgl_parsed\": \"2022-04-22T14:39:43Z\",\n                \"timestamp\": \"1650638383605\",\n                \"usd_price\": \"6.064\"\n            },\n            {\n                \"uuid\": \"4c446e1e-0d10-4df8-af38-7976b5ac7e27\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"KALIMANTAN TIMUR\",\n                \"area_kota\": \"BORNEO\",\n                \"size\": \"10\",\n                \"price\": \"1000\",\n                \"tgl_parsed\": \"2022-04-23T09:02:09Z\",\n                \"timestamp\": \"1650704529451\",\n                \"usd_price\": \"0.065\"\n            },\n            {\n                \"uuid\": \"1586c7ac-c617-49e1-ab8c-00776f5d8326\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"160\",\n                \"price\": \"23000\",\n                \"tgl_parsed\": \"2022-04-23T15:54:35Z\",\n                \"timestamp\": \"1650729275080\",\n                \"usd_price\": \"1.484\"\n            },\n            {\n                \"uuid\": \"4168c05f-7af9-498c-b43e-b28ecc502433\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"SUMATERA UTARA\",\n                \"area_kota\": \"MEDAN\",\n                \"size\": \"110\",\n                \"price\": \"65000\",\n                \"tgl_parsed\": \"2022-04-23T20:05:45Z\",\n                \"timestamp\": \"1650744345576\",\n                \"usd_price\": \"4.193\"\n            },\n            {\n                \"uuid\": \"123be739-4147-4e95-880f-a19363b01b6c\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"KALIMANTAN TIMUR\",\n                \"area_kota\": \"BORNEO\",\n                \"size\": \"160\",\n                \"price\": \"45000\",\n                \"tgl_parsed\": \"2022-04-24T02:51:54Z\",\n                \"timestamp\": \"1650768714164\",\n                \"usd_price\": \"2.903\"\n            },\n            {\n                \"uuid\": \"d365bdf7-c25f-4076-99d4-0fee5e592b24\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"BANDUNG\",\n                \"size\": \"150\",\n                \"price\": \"47000\",\n                \"tgl_parsed\": \"2022-04-24T17:16:29Z\",\n                \"timestamp\": \"1650820589136\",\n                \"usd_price\": \"3.032\"\n            },\n            {\n                \"uuid\": \"476877bc-3fe9-4646-a1cd-52d8e8ea0626\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PEMALANG\",\n                \"size\": \"30\",\n                \"price\": \"48000\",\n                \"tgl_parsed\": \"2022-04-24T17:51:38Z\",\n                \"timestamp\": \"1650822698825\",\n                \"usd_price\": \"3.096\"\n            },\n            {\n                \"uuid\": \"46bb3464-0b6f-415f-bc63-77f21d33eb55\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"SITUBONDO\",\n                \"size\": \"180\",\n                \"price\": \"48000\",\n                \"tgl_parsed\": \"2022-04-25T06:28:29Z\",\n                \"timestamp\": \"1650868109337\",\n                \"usd_price\": \"3.096\"\n            },\n            {\n                \"uuid\": \"7cd52c2a-00d9-4b61-a942-2cfbf7a36005\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CILILIN\",\n                \"size\": \"130\",\n                \"price\": \"75000\",\n                \"tgl_parsed\": \"2022-04-26T10:01:07Z\",\n                \"timestamp\": \"1650967267562\",\n                \"usd_price\": \"4.838\"\n            },\n            {\n                \"uuid\": \"132ce6ff-f490-4cb2-ac83-4ef272092144\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"20\",\n                \"price\": \"28000\",\n                \"tgl_parsed\": \"2022-04-26T15:41:57Z\",\n                \"timestamp\": \"1650987717917\",\n                \"usd_price\": \"1.806\"\n            },\n            {\n                \"uuid\": \"be59a2e6-0a56-4d7a-b009-2b2b16720c49\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"40\",\n                \"price\": \"10000\",\n                \"tgl_parsed\": \"2022-04-28T23:05:06Z\",\n                \"timestamp\": \"1651187106957\",\n                \"usd_price\": \"0.645\"\n            },\n            {\n                \"uuid\": \"79ddaf10-722c-4e6a-a528-e7d540f43505\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"70\",\n                \"price\": \"31000\",\n                \"tgl_parsed\": \"2022-04-29T21:28:14Z\",\n                \"timestamp\": \"1651267694630\",\n                \"usd_price\": \"2.0\"\n            },\n            {\n                \"uuid\": \"366f6b40-5734-4cdb-ac21-6960861ee159\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"SUMATERA BARAT\",\n                \"area_kota\": \"PADANG PARIAMAN\",\n                \"size\": \"20\",\n                \"price\": \"3000\",\n                \"tgl_parsed\": \"2022-04-30T06:26:13Z\",\n                \"timestamp\": \"1651299973972\",\n                \"usd_price\": \"0.194\"\n            },\n            {\n                \"uuid\": \"5c65bd2c-4e2a-4faf-8520-24fe6115a3ea\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"20\",\n                \"price\": \"92000\",\n                \"tgl_parsed\": \"2022-04-30T14:34:34Z\",\n                \"timestamp\": \"1651329274954\",\n                \"usd_price\": \"5.935\"\n            },\n            {\n                \"uuid\": \"36200651-5324-4f5b-a9aa-a72b57efafe9\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOR\",\n                \"size\": \"30\",\n                \"price\": \"57000\",\n                \"tgl_parsed\": \"2022-04-30T19:21:34Z\",\n                \"timestamp\": \"1651346494325\",\n                \"usd_price\": \"3.677\"\n            },\n            {\n                \"uuid\": \"f419f256-c7e6-40a5-8891-0a7f8003768d\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"60\",\n                \"price\": \"83000\",\n                \"tgl_parsed\": \"2022-04-30T21:24:38Z\",\n                \"timestamp\": \"1651353878927\",\n                \"usd_price\": \"5.354\"\n            },\n            {\n                \"uuid\": \"8d9f8dc9-8598-471e-b8a2-017b9ab99e3b\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"SUMATERA UTARA\",\n                \"area_kota\": \"MEDAN\",\n                \"size\": \"100\",\n                \"price\": \"92000\",\n                \"tgl_parsed\": \"2022-05-01T11:07:01Z\",\n                \"timestamp\": \"1651403221781\",\n                \"usd_price\": \"5.935\"\n            },\n            {\n                \"uuid\": \"c794e0a1-e1ee-4367-a3e4-741a28b35067\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"170\",\n                \"price\": \"47000\",\n                \"tgl_parsed\": \"2022-05-01T12:55:17Z\",\n                \"timestamp\": \"1651409717930\",\n                \"usd_price\": \"3.032\"\n            },\n            {\n                \"uuid\": \"572e67f1-5da7-4919-bbad-04b86b6cbb6f\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"190\",\n                \"price\": \"90000\",\n                \"tgl_parsed\": \"2022-05-02T01:55:43Z\",\n                \"timestamp\": \"1651456543743\",\n                \"usd_price\": \"5.805\"\n            },\n            {\n                \"uuid\": \"b3115c6c-4c6b-455e-b25e-fa6429140613\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"70\",\n                \"price\": \"5000\",\n                \"tgl_parsed\": \"2022-05-02T18:55:23Z\",\n                \"timestamp\": \"1651517723209\",\n                \"usd_price\": \"0.323\"\n            },\n            {\n                \"uuid\": \"d95ceca5-279d-4f72-b0d0-2abc62370ac1\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"ACEH\",\n                \"area_kota\": \"ACEH KOTA\",\n                \"size\": \"50\",\n                \"price\": \"42000\",\n                \"tgl_parsed\": \"2022-05-03T04:42:34Z\",\n                \"timestamp\": \"1651552954447\",\n                \"usd_price\": \"2.709\"\n            },\n            {\n                \"uuid\": \"7dd01d4f-78f6-4665-8727-ef506b6e5a2d\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"140\",\n                \"price\": \"46000\",\n                \"tgl_parsed\": \"2022-05-03T10:26:00Z\",\n                \"timestamp\": \"1651573560460\",\n                \"usd_price\": \"2.967\"\n            },\n            {\n                \"uuid\": \"471c53b2-d136-4f06-b4a2-42ace36439cc\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"140\",\n                \"price\": \"78000\",\n                \"tgl_parsed\": \"2022-05-05T07:19:04Z\",\n                \"timestamp\": \"1651735144461\",\n                \"usd_price\": \"5.031\"\n            },\n            {\n                \"uuid\": \"11f48389-d406-437b-99e4-23ac30cc477a\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"BANDUNG\",\n                \"size\": \"40\",\n                \"price\": \"78000\",\n                \"tgl_parsed\": \"2022-05-06T17:11:53Z\",\n                \"timestamp\": \"1651857113316\",\n                \"usd_price\": \"5.031\"\n            },\n            {\n                \"uuid\": \"efcb0cd9-0b16-4d69-825e-986b813f1969\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"30\",\n                \"price\": \"74000\",\n                \"tgl_parsed\": \"2022-05-08T09:10:25Z\",\n                \"timestamp\": \"1652001025860\",\n                \"usd_price\": \"4.773\"\n            },\n            {\n                \"uuid\": \"ec44f191-ac57-4ef7-b3ff-963b1138c182\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"DKI JAKARTA\",\n                \"area_kota\": \"KOTA TUA\",\n                \"size\": \"160\",\n                \"price\": \"1000\",\n                \"tgl_parsed\": \"2022-05-08T21:15:59Z\",\n                \"timestamp\": \"1652044559632\",\n                \"usd_price\": \"0.065\"\n            },\n            {\n                \"uuid\": \"cdfc9224-6401-40cf-aeb5-0fe7f2570ee2\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"200\",\n                \"price\": \"34000\",\n                \"tgl_parsed\": \"2022-05-09T21:42:21Z\",\n                \"timestamp\": \"1652132541397\",\n                \"usd_price\": \"2.193\"\n            },\n            {\n                \"uuid\": \"97e36e27-2b30-40a1-92b2-10d909ca920b\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOR\",\n                \"size\": \"140\",\n                \"price\": \"52000\",\n                \"tgl_parsed\": \"2022-05-10T03:19:22Z\",\n                \"timestamp\": \"1652152762432\",\n                \"usd_price\": \"3.354\"\n            },\n            {\n                \"uuid\": \"3b052470-b341-473b-ae42-64862ab505a9\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"DEPOK\",\n                \"size\": \"30\",\n                \"price\": \"72000\",\n                \"tgl_parsed\": \"2022-05-10T06:42:31Z\",\n                \"timestamp\": \"1652164951256\",\n                \"usd_price\": \"4.644\"\n            },\n            {\n                \"uuid\": \"1280e934-cac1-4c74-93df-9f6a29fc7536\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"SUMATERA UTARA\",\n                \"area_kota\": \"MEDAN\",\n                \"size\": \"40\",\n                \"price\": \"91000\",\n                \"tgl_parsed\": \"2022-05-10T09:46:18Z\",\n                \"timestamp\": \"1652175978894\",\n                \"usd_price\": \"5.87\"\n            },\n            {\n                \"uuid\": \"9c00604e-5edf-4812-babc-095cb2e481e3\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"90\",\n                \"price\": \"25000\",\n                \"tgl_parsed\": \"2022-05-11T00:15:31Z\",\n                \"timestamp\": \"1652228131387\",\n                \"usd_price\": \"1.613\"\n            },\n            {\n                \"uuid\": \"1b4f5361-6e47-4456-9800-0a6945364971\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"SUMATERA BARAT\",\n                \"area_kota\": \"PADANG PARIAMAN\",\n                \"size\": \"140\",\n                \"price\": \"54000\",\n                \"tgl_parsed\": \"2022-05-11T02:14:35Z\",\n                \"timestamp\": \"1652235275183\",\n                \"usd_price\": \"3.483\"\n            },\n            {\n                \"uuid\": \"6897ada0-c098-49ba-8b04-638276cc3326\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"140\",\n                \"price\": \"57000\",\n                \"tgl_parsed\": \"2022-05-11T21:54:28Z\",\n                \"timestamp\": \"1652306068001\",\n                \"usd_price\": \"3.677\"\n            },\n            {\n                \"uuid\": \"e0d92fe6-2100-4cd0-8832-c4fe8df32fa5\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOR\",\n                \"size\": \"20\",\n                \"price\": \"75000\",\n                \"tgl_parsed\": \"2022-05-14T08:43:16Z\",\n                \"timestamp\": \"1652517796011\",\n                \"usd_price\": \"4.838\"\n            },\n            {\n                \"uuid\": \"ab04201b-5215-4a42-8849-e6ae907a6d2c\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJO\",\n                \"size\": \"140\",\n                \"price\": \"61000\",\n                \"tgl_parsed\": \"2022-05-14T23:21:25Z\",\n                \"timestamp\": \"1652570485318\",\n                \"usd_price\": \"3.935\"\n            },\n            {\n                \"uuid\": \"96a13781-6ea3-4a0f-b70f-cc11847b4140\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"SITUBONDO\",\n                \"size\": \"60\",\n                \"price\": \"14000\",\n                \"tgl_parsed\": \"2022-05-16T05:12:13Z\",\n                \"timestamp\": \"1652677933763\",\n                \"usd_price\": \"0.903\"\n            },\n            {\n                \"uuid\": \"84d606d0-7382-4a96-a5e2-bda346a40c3f\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"a\",\n                \"area_kota\": null,\n                \"size\": \"20\",\n                \"price\": \"97000\",\n                \"tgl_parsed\": \"2022-05-16T15:30:49Z\",\n                \"timestamp\": \"1652715049683\",\n                \"usd_price\": \"6.257\"\n            },\n            {\n                \"uuid\": \"b1eae05a-aa7a-4a4f-8ea9-4a37763a755b\",\n                \"komoditas\": \"BANDENG\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"PROBOLINGGO\",\n                \"size\": \"190\",\n                \"price\": \"73000\",\n                \"tgl_parsed\": \"2022-05-17T13:45:28Z\",\n                \"timestamp\": \"1652795128616\",\n                \"usd_price\": \"4.709\"\n            },\n            {\n                \"uuid\": \"19c38de0-629c-4e55-8708-5b99f02ae261\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"KALIMANTAN TIMUR\",\n                \"area_kota\": \"BORNEO\",\n                \"size\": \"140\",\n                \"price\": \"23000\",\n                \"tgl_parsed\": \"2022-05-17T23:16:24Z\",\n                \"timestamp\": \"1652829384124\",\n                \"usd_price\": \"1.484\"\n            },\n            {\n                \"uuid\": \"7bbf7644-c038-4fe2-8f6e-4c9a208a0215\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"TEGAL\",\n                \"size\": \"110\",\n                \"price\": \"64000\",\n                \"tgl_parsed\": \"2022-05-18T07:27:20Z\",\n                \"timestamp\": \"1652858840192\",\n                \"usd_price\": \"4.128\"\n            },\n            {\n                \"uuid\": \"1e35827c-2653-49e9-a69b-569429743ae3\",\n                \"komoditas\": \"NILA MERAH\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PURWOREJO\",\n                \"size\": \"20\",\n                \"price\": \"87000\",\n                \"tgl_parsed\": \"2022-05-21T13:08:20Z\",\n                \"timestamp\": \"1653138500983\",\n                \"usd_price\": \"5.612\"\n            },\n            {\n                \"uuid\": \"06cc120c-2390-4524-a901-acdba71ac572\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"LAMPUNG\",\n                \"area_kota\": \"LAMPUNG TIMUR\",\n                \"size\": \"160\",\n                \"price\": \"36000\",\n                \"tgl_parsed\": \"2022-05-21T14:06:59Z\",\n                \"timestamp\": \"1653142019118\",\n                \"usd_price\": \"2.322\"\n            },\n            {\n                \"uuid\": \"5c57443d-c9f3-46ef-bcb2-4670f8c25746\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"PURWOREJO\",\n                \"size\": \"150\",\n                \"price\": \"98000\",\n                \"tgl_parsed\": \"2022-05-21T18:52:58Z\",\n                \"timestamp\": \"1653159178054\",\n                \"usd_price\": \"6.322\"\n            },\n            {\n                \"uuid\": \"3bf19552-e290-4642-8b0f-e6adbcaf34ac\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"120\",\n                \"price\": \"14000\",\n                \"tgl_parsed\": \"2022-05-22T01:11:19Z\",\n                \"timestamp\": \"1653181879769\",\n                \"usd_price\": \"0.903\"\n            },\n            {\n                \"uuid\": \"d7e5d247-09dc-4d43-b337-8956dd74b3b1\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA BARAT\",\n                \"area_kota\": \"CIREBON\",\n                \"size\": \"20\",\n                \"price\": \"88000\",\n                \"tgl_parsed\": \"2022-05-22T04:45:30Z\",\n                \"timestamp\": \"1653194730879\",\n                \"usd_price\": \"5.676\"\n            },\n            {\n                \"uuid\": \"c027a3e2-fda9-4c6f-9ede-379d839e17ed\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJOL\",\n                \"size\": \"190\",\n                \"price\": \"40000\",\n                \"tgl_parsed\": \"2022-05-22T18:05:10Z\",\n                \"timestamp\": \"1653242710171\",\n                \"usd_price\": \"2.58\"\n            },\n            {\n                \"uuid\": \"5f408316-5f8c-4f05-b625-fd0513809cf5\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"10\",\n                \"price\": \"41000\",\n                \"tgl_parsed\": \"2022-05-23T01:22:01Z\",\n                \"timestamp\": \"1653268921958\",\n                \"usd_price\": \"2.645\"\n            },\n            {\n                \"uuid\": \"ee38120c-c8fb-4bc3-a779-58790a091901\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"SUMATERA UTARA\",\n                \"area_kota\": \"MEDAN\",\n                \"size\": \"200\",\n                \"price\": \"33000\",\n                \"tgl_parsed\": \"2022-05-23T06:55:43Z\",\n                \"timestamp\": \"1653288943073\",\n                \"usd_price\": \"2.129\"\n            },\n            {\n                \"uuid\": \"e0184956-b912-4a88-b6c0-4d64aebabd67\",\n                \"komoditas\": \"MAS\",\n                \"area_provinsi\": \"SULAWESI BARAT\",\n                \"area_kota\": \"MAMUJU UTARA\",\n                \"size\": \"160\",\n                \"price\": \"8000\",\n                \"tgl_parsed\": \"2022-05-23T08:38:19Z\",\n                \"timestamp\": \"1653295099411\",\n                \"usd_price\": \"0.516\"\n            },\n            {\n                \"uuid\": \"34e8f05a-5bf9-44d1-91b2-10887742a941\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"BANTEN\",\n                \"area_kota\": \"PANDEGLANG\",\n                \"size\": \"30\",\n                \"price\": \"79000\",\n                \"tgl_parsed\": \"2022-05-23T19:48:00Z\",\n                \"timestamp\": \"1653335280426\",\n                \"usd_price\": \"5.096\"\n            },\n            {\n                \"uuid\": \"5fd034f0-3fbe-4950-8593-104befcc6cb0\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": null,\n                \"area_kota\": null,\n                \"size\": \"200\",\n                \"price\": \"28000\",\n                \"tgl_parsed\": \"2022-05-27T03:18:06Z\",\n                \"timestamp\": \"1653621486242\",\n                \"usd_price\": \"1.806\"\n            },\n            {\n                \"uuid\": \"a4a108c5-7c33-4f6b-910a-df4243df0d80\",\n                \"komoditas\": \"NILA HITAM\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \"CILACAP\",\n                \"size\": \"160\",\n                \"price\": \"56000\",\n                \"tgl_parsed\": \"2022-05-27T06:31:37Z\",\n                \"timestamp\": \"1653633097205\",\n                \"usd_price\": \"3.612\"\n            },\n            {\n                \"uuid\": \"5f6781e6-4ad4-4f74-bc94-60b818cd44b3\",\n                \"komoditas\": \"PATIN\",\n                \"area_provinsi\": \"DKI JAKARTA\",\n                \"area_kota\": \"KOTA TUA\",\n                \"size\": \"30\",\n                \"price\": \"52000\",\n                \"tgl_parsed\": \"2022-05-27T10:50:23Z\",\n                \"timestamp\": \"1653648623435\",\n                \"usd_price\": \"3.354\"\n            },\n            {\n                \"uuid\": \"803e4984-3336-402d-b9e1-555d196d3d20\",\n                \"komoditas\": \"LELE\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"90\",\n                \"price\": \"41000\",\n                \"tgl_parsed\": \"2022-05-28T11:14:23Z\",\n                \"timestamp\": \"1653736463756\",\n                \"usd_price\": \"2.645\"\n            },\n            {\n                \"uuid\": \"7449225e-923b-42df-aa87-ba2b1ceffe1f\",\n                \"komoditas\": \"BAWAL\",\n                \"area_provinsi\": \"JAWA TIMUR\",\n                \"area_kota\": \"BANYUWANGI\",\n                \"size\": \"40\",\n                \"price\": \"50000\",\n                \"tgl_parsed\": \"2022-05-29T19:28:01Z\",\n                \"timestamp\": \"1653852481368\",\n                \"usd_price\": \"3.225\"\n            },\n            {\n                \"uuid\": \"534b25a9-97ed-4493-832f-3c072eb670bf\",\n                \"komoditas\": \"GURAME\",\n                \"area_provinsi\": \"JAWA TENGAH\",\n                \"area_kota\": \" PURWOREJO\",\n                \"size\": \"140\",\n                \"price\": \"54000\",\n                \"tgl_parsed\": \"2022-05-30T13:25:19Z\",\n                \"timestamp\": \"1653917119976\",\n                \"usd_price\": \"3.483\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Currency",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "apikey",
+						"value": "327jisVHnJJXxpT4hX5hGdpa5kQXlSEj",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://api.apilayer.com/currency_data/convert?to=IDR&from=USD&amount=1",
+					"protocol": "https",
+					"host": [
+						"api",
+						"apilayer",
+						"com"
+					],
+					"path": [
+						"currency_data",
+						"convert"
+					],
+					"query": [
+						{
+							"key": "to",
+							"value": "IDR"
+						},
+						{
+							"key": "from",
+							"value": "USD"
+						},
+						{
+							"key": "amount",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "apikey",
+								"value": "327jisVHnJJXxpT4hX5hGdpa5kQXlSEj",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.apilayer.com/currency_data/convert?to=USD&from=IDR&amount=100000",
+							"protocol": "https",
+							"host": [
+								"api",
+								"apilayer",
+								"com"
+							],
+							"path": [
+								"currency_data",
+								"convert"
+							],
+							"query": [
+								{
+									"key": "to",
+									"value": "USD"
+								},
+								{
+									"key": "from",
+									"value": "IDR"
+								},
+								{
+									"key": "amount",
+									"value": "100000"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Sat, 11 Mar 2023 17:22:37 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "CF-Ray",
+							"value": "7a657b06cd11a123-SIN"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "CF-Cache-Status",
+							"value": "DYNAMIC"
+						},
+						{
+							"key": "cf-apo-via",
+							"value": "origin,host"
+						},
+						{
+							"key": "RateLimit-Limit",
+							"value": "100"
+						},
+						{
+							"key": "RateLimit-Remaining",
+							"value": "98"
+						},
+						{
+							"key": "RateLimit-Reset",
+							"value": "1665443"
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "34bacdab2a8041e7142890f1d63631f2"
+						},
+						{
+							"key": "X-RateLimit-Limit-Day",
+							"value": "100"
+						},
+						{
+							"key": "X-RateLimit-Limit-Month",
+							"value": "100"
+						},
+						{
+							"key": "X-RateLimit-Remaining-Day",
+							"value": "98"
+						},
+						{
+							"key": "X-RateLimit-Remaining-Month",
+							"value": "98"
+						},
+						{
+							"key": "Report-To",
+							"value": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=%2BBr6INtdKTdxe%2FBvRR%2BD6yhILWpQzdoza8yUPYcUM8tMvN74oHidlxv6K9GVktQ7ISO%2F%2BxXbYuBY91he%2FpLZvmnAQKVGUF3oNU%2F5OafdOTkx94czPWpEzcJRtaXUr%2FVuBnQ%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "NEL",
+							"value": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "Server",
+							"value": "cloudflare"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "br"
+						},
+						{
+							"key": "alt-svc",
+							"value": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"success\": true,\n    \"query\": {\n        \"from\": \"IDR\",\n        \"to\": \"USD\",\n        \"amount\": 100000\n    },\n    \"info\": {\n        \"timestamp\": 1678555323,\n        \"quote\": 0.000064505517\n    },\n    \"result\": 6.450552\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"jsonrpc\": \"2.0\",\r\n    \"params\":{\r\n        \"partner\": {\r\n            \"name\": \"Test Customer\",\r\n            \"ref\": \"TEST01\",\r\n            \"phone\": \"08888888888\",\r\n            \"email\": \"test@example.com\",\r\n            \"street\": \"Jl Test\",\r\n            \"street2\": \"Gedung Lebih Detail\",\r\n            \"city\": \"Jakarta Barat\",\r\n            \"state\": \"Jakarta\",\r\n            \"country\": \"Indonesia\",\r\n            \"zip\": \"21222\"\r\n        },\r\n        \"order_line\": [\r\n            {\r\n                \"product\": \"Product 3\",\r\n                \"sku\": \"PRODUCT3\",\r\n                \"qty\": 2,\r\n                \"price\": 20000\r\n            },\r\n            {\r\n                \"product\": \"Product 4\",\r\n                \"sku\": \"PRODUCT3\",\r\n                \"qty\": 1,\r\n                \"price\": 14000\r\n            }\r\n        ]\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/order",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"order"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jsonrpc\": \"2.0\",\r\n    \"params\":{\r\n        \"partner\": {\r\n            \"name\": \"Test Customer\",\r\n            \"ref\": \"TEST01\",\r\n            \"phone\": \"08888888888\",\r\n            \"email\": \"test@example.com\",\r\n            \"street\": \"Jl Test\",\r\n            \"street2\": \"Gedung Lebih Detail\",\r\n            \"city\": \"Jakarta Barat\",\r\n            \"state\": \"Jakarta\",\r\n            \"country\": \"Indonesia\",\r\n            \"zip\": \"21222\"\r\n        },\r\n        \"order_line\": [\r\n            {\r\n                \"product\": \"Product 1\",\r\n                \"sku\": \"PRODUCT1\",\r\n                \"qty\": 2,\r\n                \"price\": 20000\r\n            },\r\n            {\r\n                \"product\": \"Product 2\",\r\n                \"sku\": \"PRODUCT2\",\r\n                \"qty\": 1,\r\n                \"price\": 14000\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/order",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "156"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "session_id=0c1b691e8741aa19620c63014d7f2da17653fdd6; HttpOnly; Path=/"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.16.1 Python/3.8.10"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Mar 2023 11:31:11 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": null,\n    \"result\": {\n        \"status\": 200,\n        \"message\": \"Success\",\n        \"response\": {\n            \"id\": \"ac570654-a73d-49b7-8e12-e4f952c6cd0d\",\n            \"ref\": \"S00004\"\n        }\n    }\n}"
+				},
+				{
+					"name": "Failed",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"jsonrpc\": \"2.0\",\r\n    \"params\":{\r\n        \"partner\": {\r\n            \"name\": \"Test Customer\",\r\n            \"phone\": \"08888888888\",\r\n            \"email\": \"test@example.com\",\r\n            \"street\": \"Jl Test\",\r\n            \"street2\": \"Gedung Lebih Detail\",\r\n            \"city\": \"Jakarta Barat\",\r\n            \"state\": \"Jakarta\",\r\n            \"country\": \"Indonesia\",\r\n            \"zip\": \"21222\"\r\n        },\r\n        \"order_line\": [\r\n            {\r\n                \"product\": \"Product 1\",\r\n                \"sku\": \"PRODUCT1\",\r\n                \"qty\": 2,\r\n                \"price\": 20000\r\n            },\r\n            {\r\n                \"product\": \"Product 2\",\r\n                \"sku\": \"PRODUCT2\",\r\n                \"qty\": 1,\r\n                \"price\": 14000\r\n            }\r\n        ]\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/order",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"order"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "108"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "POST"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "session_id=0c1b691e8741aa19620c63014d7f2da17653fdd6; HttpOnly; Path=/"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.16.1 Python/3.8.10"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Mar 2023 12:17:24 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": null,\n    \"result\": {\n        \"status\": 403,\n        \"message\": \"name and reference customer required\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Order List",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/order/list",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"order",
+						"list"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/order/list",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"order",
+								"list"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1560"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Methods",
+							"value": "GET"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "session_id=0c1b691e8741aa19620c63014d7f2da17653fdd6; HttpOnly; Path=/"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.16.1 Python/3.8.10"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 12 Mar 2023 11:43:41 GMT"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"result\": {\n        \"status\": 200,\n        \"message\": \"Success\",\n        \"response\": [\n            {\n                \"id\": \"ac570654-a73d-49b7-8e12-e4f952c6cd0d\",\n                \"status\": \"sale\",\n                \"amount\": 59400,\n                \"partner\": {\n                    \"name\": \"Test Customer\",\n                    \"ref\": \"TEST01\",\n                    \"phone\": \"08888888888\",\n                    \"email\": \"test@example.com\",\n                    \"street\": \"Jl Test\",\n                    \"street2\": \"Gedung Lebih Detail\",\n                    \"city\": \"Jakarta Barat\",\n                    \"state\": \"Jakarta\",\n                    \"country\": \"Indonesia\",\n                    \"zip\": \"21222\"\n                },\n                \"order_line\": [\n                    {\n                        \"product\": \"Product 1\",\n                        \"sku\": \"PRODUCT1\",\n                        \"qty\": 2,\n                        \"price\": 20000\n                    },\n                    {\n                        \"product\": \"Product 2\",\n                        \"sku\": \"PRODUCT2\",\n                        \"qty\": 1,\n                        \"price\": 14000\n                    }\n                ]\n            },\n            {\n                \"id\": \"c32f8b33-0449-4b13-9377-34acf7526548\",\n                \"status\": \"sale\",\n                \"amount\": 59400,\n                \"partner\": {\n                    \"name\": \"Test Customer\",\n                    \"ref\": \"TEST01\",\n                    \"phone\": \"08888888888\",\n                    \"email\": \"test@example.com\",\n                    \"street\": \"Jl Test\",\n                    \"street2\": \"Gedung Lebih Detail\",\n                    \"city\": \"Jakarta Barat\",\n                    \"state\": \"Jakarta\",\n                    \"country\": \"Indonesia\",\n                    \"zip\": \"21222\"\n                },\n                \"order_line\": [\n                    {\n                        \"product\": \"Product 1\",\n                        \"sku\": \"PRODUCT1\",\n                        \"qty\": 2,\n                        \"price\": 20000\n                    },\n                    {\n                        \"product\": \"Product 2\",\n                        \"sku\": \"PRODUCT2\",\n                        \"qty\": 1,\n                        \"price\": 14000\n                    }\n                ]\n            },\n            {\n                \"id\": \"d414b454-c9c2-4577-83ba-9f9688a1eca5\",\n                \"status\": \"sale\",\n                \"amount\": 59400,\n                \"partner\": {\n                    \"name\": \"Test Customer\",\n                    \"ref\": \"TEST01\",\n                    \"phone\": \"08888888888\",\n                    \"email\": \"test@example.com\",\n                    \"street\": \"Jl Test\",\n                    \"street2\": \"Gedung Lebih Detail\",\n                    \"city\": \"Jakarta Barat\",\n                    \"state\": \"Jakarta\",\n                    \"country\": \"Indonesia\",\n                    \"zip\": \"21222\"\n                },\n                \"order_line\": [\n                    {\n                        \"product\": \"Product 1\",\n                        \"sku\": \"PRODUCT1\",\n                        \"qty\": 2,\n                        \"price\": 20000\n                    },\n                    {\n                        \"product\": \"Product 2\",\n                        \"sku\": \"PRODUCT2\",\n                        \"qty\": 1,\n                        \"price\": 14000\n                    }\n                ]\n            }\n        ]\n    }\n}"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiVGVzdDQiLCJlbWFpbCI6bnVsbCwicm9sZSI6ImFkbWluIn0.VYEfzJmXc3K4ET-DQ_nAVlbf1b0n7Tte03sbXLKLuHk",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://127.0.0.1:8069",
+			"type": "string"
+		}
+	]
+}
