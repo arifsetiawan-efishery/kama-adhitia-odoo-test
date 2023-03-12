@@ -20,6 +20,8 @@ import werkzeug.wsgi
 
 import jwt
 import json
+import uuid
+from decimal import Decimal
 
 from pyrate_limiter import (Duration, RequestRate,
                             Limiter, BucketFullException)
@@ -41,16 +43,29 @@ def clear_session_history(u_sid, f_uid=False):
     return False
 
 
-def token_validation(token):
+def token_validation():
 
     secret_key = request.env['kams.auth.config'].sudo().search(
         [], limit=1).secret_key
 
     try:
-        data = jwt.decode(token, secret_key, algorithms=["HS256"])
+        PREFIX = 'Bearer '
+        headers = request.httprequest.headers
+        bearer = headers.get('Authorization')
+        if not bearer.startswith(PREFIX):
+            raise ValueError('Invalid token type')
+        data = jwt.decode(bearer[len(PREFIX):],
+                          secret_key, algorithms=["HS256"])
         role = data.get('role')
         email = data.get('email', 'anonym')
+
+        if role == 'user':
+            limiter.try_acquire(email)
+
         return role, email
+
+    except BucketFullException:
+        raise ValueError('Too many request')
     except:
         raise ValueError('Token is invalid')
 
@@ -215,20 +230,11 @@ class OdooTest(Controller):
                 }
 
     @route(
-        "/api/fetch", type="http", auth="none", csrf=False, cors="*", methods=["GET"],
+        "/api/fetch", type="http", auth="public", csrf=False, cors="*", methods=["GET"],
     )
     def fetch(self):
         try:
-            PREFIX = 'Bearer '
-            headers = request.httprequest.headers
-            bearer = headers.get('Authorization')
-            if not bearer.startswith(PREFIX):
-                raise ValueError('Invalid token type')
-
-            role, email = token_validation(bearer[len(PREFIX):])
-
-            if role == 'user':
-                limiter.try_acquire(email)
+            token_validation()
             data = []
             get_data = request.env['kams.cache.data'].sudo().search([])
             for line in get_data:
@@ -245,15 +251,138 @@ class OdooTest(Controller):
                     }
                 }))
 
-        except BucketFullException:
+        except Exception as e:
             return Response(
-                status=400,
+                status=403,
                 content_type='application/json; charset=utf-8',
                 response=json.dumps({
                     'result':
                     {
-                        'status': 400,
-                        'message': "Too many request",
+                        'status': 403,
+                        'message': str(e),
+                    }
+                }))
+
+    @route(
+        "/api/order", type="json", auth="public", csrf=False, cors="*", methods=["POST"],
+    )
+    def order(self, partner, order_line):
+        try:
+            token_validation()
+            lines = []
+            ref_partner = partner.get('ref')
+            name_partner = partner.get('name')
+
+            sid = str(uuid.uuid4())
+            if not order_line:
+                raise ValueError('order_line required')
+            if not ref_partner or not name_partner:
+                raise ValueError('name and reference customer required')
+
+            for product in order_line:
+                if not product.get('sku') or not product.get('product'):
+                    raise ValueError('sku and name product required')
+                product_id = request.env['product.product'].sudo().search(
+                    [('default_code', '=', product.get('sku'))], limit=1)
+                if not product_id:
+                    product_id = request.env['product.template'].sudo().create({
+                        "name": product.get('product'),
+                        "default_code": product.get('sku'),
+                        "type": "product"
+                    }).product_variant_id
+                line = {
+                    'product_id': product_id.id,
+                    'price_unit': float(Decimal(product.get('price', 0))),
+                    'product_uom_qty': float(Decimal(product.get('qty', 1)))
+                }
+                lines.append([0, 0, line])
+
+            partner_id = request.env['res.partner'].sudo().search(
+                [('ref', '=', ref_partner)], limit=1)
+            order = request.env['sale.order'].sudo().create({
+                "partner_id": partner_id.id if partner_id else request.env['res.partner'].sudo().create(
+                    {
+                        "name": name_partner,
+                        "ref": ref_partner,
+                        "phone": partner.get('phone', ""),
+                        "email": partner.get('email', ""),
+                        "street": partner.get('street', ""),
+                        "street2": partner.get('street2', ""),
+                        "city": partner.get('city', ""),
+                        "state_id": request.env['res.country.state'].sudo().search(
+                            [('name', '=', partner.get('state'))], limit=1).id,
+                        "country_id": request.env['res.country'].sudo().search(
+                            [('name', '=', partner.get('country'))], limit=1).id,
+                        "zip": partner.get('zip', ""),
+                    }
+                ).id,
+                "order_line": lines,
+                "sid": sid
+            })
+
+            order.action_confirm()
+
+            return {
+                'status': 200,
+                'message': 'Success',
+                "response": {
+                    "id": sid,
+                    "ref": order.name
+                }
+            }
+
+        except Exception as e:
+            Response.status = '403'
+            return {
+                'status': 403,
+                'message': str(e),
+            }
+
+    @route(
+        "/api/order/list", type="http", auth="none", csrf=False, cors="*", methods=["GET"],
+    )
+    def order_list(self):
+        try:
+            token_validation()
+            data = []
+            get_data = request.env['sale.order'].sudo().search(
+                [('sid', '!=', False)])
+            for line in get_data:
+                vals = {
+                    "id": line.sid,
+                    "status": line.state,
+                    "amount": line.amount_total,
+                    "partner": {
+                        "name": line.partner_id.name,
+                        "ref": line.partner_id.ref,
+                        "phone": line.partner_id.phone,
+                        "email": line.partner_id.email,
+                        "street": line.partner_id.street,
+                        "street2": line.partner_id.street2,
+                        "city": line.partner_id.city,
+                        "state": line.partner_id.state_id.name,
+                        "country": line.partner_id.country_id.name,
+                        "zip": line.partner_id.zip
+                    },
+                    "order_line": [
+                        {
+                            "product": x.product_id.name,
+                            "sku": x.product_id.default_code,
+                            "qty": x.product_uom_qty,
+                            "price": x.price_unit
+                        } for x in line.order_line
+                    ]
+                }
+                data.append(vals)
+            return Response(
+                status=200,
+                content_type='application/json; charset=utf-8',
+                response=json.dumps({
+                    'result':
+                    {
+                        'status': 200,
+                        'message': 'Success',
+                        "response": data
                     }
                 }))
 
