@@ -12,7 +12,7 @@ import os
 import werkzeug
 import werkzeug.exceptions
 import werkzeug.routing
-import werkzeug.contrib.sessions
+import secure_cookie.session
 import werkzeug.datastructures
 import werkzeug.local
 import werkzeug.wrappers
@@ -32,7 +32,7 @@ limiter = Limiter(rate)
 
 def clear_session_history(u_sid, f_uid=False):
     path = odoo.tools.config.session_dir
-    store = werkzeug.contrib.sessions.FilesystemSessionStore(
+    store = secure_cookie.session.FilesystemSessionStore(
         path, session_class=odoo.http.OpenERPSession, renew_missing=True)
     session_fname = store.get_session_filename(u_sid)
     try:

@@ -1,5 +1,4 @@
-FROM ubuntu:20.04
-MAINTAINER Odoo S.A. <info@odoo.com>
+FROM debian:bullseye-slim
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
@@ -8,7 +7,7 @@ ENV LANG C.UTF-8
 
 # Install some deps, lessc and less-plugin-clean-css, and wkhtmltopdf
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends \
     ca-certificates \
     curl \
     dirmngr \
@@ -17,7 +16,6 @@ RUN apt-get update && \
     libssl-dev \
     node-less \
     npm \
-    python-dev python3-dev libxml2-dev libxslt1-dev zlib1g-dev libsasl2-dev libldap2-dev build-essential libssl-dev libffi-dev libmysqlclient-dev libjpeg-dev libpq-dev libjpeg8-dev liblcms2-dev libblas-dev libatlas-base-dev \
     python3-num2words \
     python3-pdfminer \
     python3-pip \
@@ -32,13 +30,13 @@ RUN apt-get update && \
     python3-xlrd \
     python3-xlwt \
     xz-utils \
-    && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.focal_amd64.deb \
-    && echo 'ae4e85641f004a2097621787bf4381e962fb91e1 wkhtmltox.deb' | sha1sum -c - \
-    && apt-get install -y ./wkhtmltox.deb \
+    && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb \
+    && echo "d9f259a67e05e1c221d48b504453645e6c491fab wkhtmltox.deb" | sha1sum -c - \
+    && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
     && rm -rf /var/lib/apt/lists/* wkhtmltox.deb
 
 # install latest postgresql-client
-RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
+RUN echo 'deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main' > /etc/apt/sources.list.d/pgdg.list \
     && GNUPGHOME="$(mktemp -d)" \
     && export GNUPGHOME \
     && repokey='B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8' \
@@ -56,8 +54,8 @@ RUN npm install -g rtlcss
 
 # Install Odoo
 ENV ODOO_VERSION 14.0
-ARG ODOO_RELEASE=20230310
-ARG ODOO_SHA=37bba47bc9c24ce6e68d4fe9255d6ac609eeea68
+ARG ODOO_RELEASE=20230315
+ARG ODOO_SHA=4140c9d3339fc3343b7a957ed51cd87aabb2258a
 RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/odoo_${ODOO_VERSION}.${ODOO_RELEASE}_all.deb \
     && echo "${ODOO_SHA} odoo.deb" | sha1sum -c - \
     && apt-get update \
@@ -66,7 +64,14 @@ RUN curl -o odoo.deb -sSL http://nightly.odoo.com/${ODOO_VERSION}/nightly/deb/od
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /
-COPY ./config/odoo.conf /etc/odoo/
+COPY ./odoo.conf /etc/odoo/
+
+# Install Requirements
+COPY requirements.txt /usr/lib/python3/dist-packages/add-requirements.txt
+RUN cd /usr/lib/python3/dist-packages && pip3 install -r add-requirements.txt
+
+COPY odoo-bin /usr/bin/odoo
+RUN chown odoo /usr/bin/odoo
 
 # Set permissions and Mount /var/lib/odoo to allow restoring filestore and /mnt/extra-addons for users addons
 RUN chown odoo /etc/odoo/odoo.conf \
@@ -82,16 +87,10 @@ ENV ODOO_RC /etc/odoo/odoo.conf
 
 COPY wait-for-psql.py /usr/local/bin/wait-for-psql.py
 
-# Install Requirements
-COPY requirements.txt /usr/lib/python3/dist-packages/requirements.txt
-RUN cd /usr/lib/python3/dist-packages && pip install -r requirements.txt
-
-RUN chmod +x entrypoint.sh
-RUN chmod +x /usr/local/bin/wait-for-psql.py
-RUN chown -R odoo /var/lib/odoo
-
 # Set default user when running the container
 USER odoo
+
+ENV SHELL /bin/bash
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["odoo"]
